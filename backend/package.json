@@ -1,26 +1,31 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "main": "app.js",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev -r tsconfig-paths/register --watch .env src/index.ts",
-    "start": "node dist/index.js"
+    "start": "nodemon dist/app.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register --watch .env src/app.ts",
   },
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.6.1",
-  "dependencies": {
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mongoose": "^8.12.2",
-    "morgan": "^1.10.0"
-  },
+  "description": "",
   "devDependencies": {
     "@types/express": "^5.0.1",
     "@types/morgan": "^1.9.9",
+    "@types/nodemon": "^1.19.6",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
+    "nodemon": "^3.1.9",
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.12.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0"
   }
 }
