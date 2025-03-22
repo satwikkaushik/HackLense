@@ -41,6 +41,11 @@ const UserSchema = new Schema({
         trim: true,
         maxlength: 100
     },
+    access: {
+        type: [String],
+        enum: ["admin", "editor", "viewer"],
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now
