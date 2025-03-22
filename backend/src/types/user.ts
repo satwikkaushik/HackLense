@@ -8,3 +8,9 @@ export interface CreateUser {
   department?: string;
   designation?: string;
 }
+
+export interface LoginUser {
+  email: string;
+  password: string;
+  role: "admin" | "teacher" | "user";
+}
