@@ -11,8 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/", (_req: Request, res: Response) => {
-    res.status(200).send("Hello, TypeScript with Express!");
-    return;
+  res.status(200).json({ message: "ok" });
+  return;
 });
 
 app.use("/account", accountRoutes);
