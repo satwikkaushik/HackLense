@@ -1,0 +1,182 @@
+/* General Styles */
+.contact-page-container {
+    margin-top: 60px;
+    width: 100vw;
+    max-width: 100%;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+    background-color: #0D1321; /* Dark Blue */
+    color: #F0EBD8; /* Cream */
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: rgba(29, 45, 68, 0.8); /* Navy Blue */
+    border-radius: 8px;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    color: #F0EBD8; /* Cream */
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: #748CAB; /* Muted Blue */
+}
+
+/* Contact Content */
+.contact-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+/* Contact Form */
+.contact-form-container {
+    flex: 1;
+    min-width: 350px;
+    padding: 2rem;
+    background: #3E5C76; /* Steel Blue */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.contact-form-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #F0EBD8; /* Cream */
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: #F0EBD8; /* Cream */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #F0EBD8; /* Muted Blue */
+    border-radius: 5px;
+    background: #1D2D44; /* Navy Blue */
+    color: #F0EBD8; /* Cream */
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+.submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #748CAB; /* Muted Blue */
+    color: #0D1321; /* Dark Blue */
+    font-size: 1rem;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit-btn:disabled {
+    background: #a0a0a0;
+    cursor: not-allowed;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background: #F0EBD8; /* Cream */
+    color: #0D1321; /* Dark Blue */
+}
+
+.submit-btn svg {
+    margin-left: 5px;
+}
+
+/* Contact Info */
+.contact-info {
+    flex: 1;
+    min-width: 350px;
+    padding: 2rem;
+    background: #1D2D44; /* Navy Blue */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.contact-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #F0EBD8; /* Cream */
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.info-item svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    color: #F0EBD8; /* Cream */
+}
+
+.info-item p {
+    font-weight: 600;
+    margin: 0;
+    color: #F0EBD8; /* Cream */
+}
+
+.info-item span {
+    color: #748CAB; /* Muted Blue */
+}
+
+/* Map Section */
+.map-section {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.map-frame {
+    width: 100%;
+    height: 300px;
+    border: none;
+    border-radius: 8px;
+}
+
+.map-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #F0EBD8; /* Cream */
+}
+
+.map-placeholder {
+    height: 300px;
+    background: #3E5C76; /* Steel Blue */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #F0EBD8; /* Cream */
+    border-radius: 8px;
+}

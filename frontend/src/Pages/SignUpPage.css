@@ -1,0 +1,168 @@
+/* Container for the entire page */
+.signup-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top */
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #F0EBD8; /* Light background color */
+  padding-top: 60px; /* Add padding-top to avoid overlap with navbar */
+}
+
+/* The container for the form card */
+.signup-card-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  background-color: #FFFFFF; /* White background for the form card */
+  border: 1px solid #3E5C76; /* Border using one of the primary colors */
+}
+
+/* Header text for the page */
+.signup-header h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #0D1321; /* Dark blue-black color */
+}
+
+/* Styling for the tab selection */
+.tab-selection {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.tab-item {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 1px solid #3E5C76; /* Border color from the palette */
+  border-radius: 5px;
+  color: #1D2D44; /* Darker blue-gray for the tab text */
+  background-color: #F0EBD8; /* Light background for tabs */
+}
+
+.active-tab {
+  background-color: #1D2D44; /* Active tab background */
+  color: white; /* Active tab text color */
+  border-color: #1D2D44; /* Border color when active */
+}
+
+/* Form input groups */
+.form-input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-input-group label {
+  font-size: 1rem;
+  color: #1D2D44; /* Dark text for the label */
+}
+
+.form-input-group input, 
+.form-input-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #3E5C76; /* Border color from the palette */
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #0D1321; /* Dark input text color */
+  margin-top: 5px;
+}
+
+.form-input-group select {
+  cursor: pointer;
+}
+
+/* Button styling */
+.signup-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3E5C76; /* Button background using the primary color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.signup-button:hover {
+  background-color: #748CAB; /* Slightly lighter shade on hover */
+}
+
+/* Forgot password and other links */
+.forgot-password-link {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #1D2D44; /* Dark text for links */
+  text-align: left;
+}
+
+.forgot-password-link a {
+  text-decoration: none;
+  color: #1D2D44; /* Dark text for the link */
+}
+
+.forgot-password-link a:hover {
+  text-decoration: underline;
+}
+
+/* Footer section for the "already have an account" link */
+.signup-footer {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #1D2D44; /* Dark footer text */
+}
+
+.signup-footer a {
+  color: #1D2D44; /* Dark text for the footer link */
+  text-decoration: none;
+}
+
+.signup-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Adjustments for the teacher's form to avoid overlap with the navbar */
+.signup-form-teacher {
+  margin-top: 20px; /* Add top margin for the teacher's form */
+}
+
+/* Specific styling for teacher form fields */
+.signup-form-teacher .form-input-group label {
+  font-weight: bold;
+}
+
+/* Different styling for teacher form, ensuring proper layout */
+.signup-form-teacher input, 
+.signup-form-teacher select {
+  background-color: #E9F0F7; /* Light blue background for teacher form inputs */
+  border: 1px solid #748CAB; /* Use a lighter border color for teacher form */
+}
+
+/* Add extra margin to ensure the form is not hidden under the navbar when switched to teacher tab */
+.signup-card-container {
+  margin-top: 80px; /* Increased margin to ensure no overlap with navbar */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .signup-card-container {
+    width: 90%;
+  }
+
+  .tab-selection {
+    flex-direction: column;
+  }
+
+  .tab-item {
+    margin-bottom: 10px;
+  }
+}

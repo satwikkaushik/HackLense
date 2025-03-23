@@ -1,0 +1,22 @@
+/* chatbot-button.css */
+.chat-toggle-button {
+    z-index: 9999;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #e85a9c;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .chat-toggle-button:hover {
+    background-color: #d14a8c;
+    transform: scale(1.1);
+  }
+  
