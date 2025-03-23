@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './LoginPage.css';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./LoginPage.css";
+
+const BACKEND_URL = "http://localhost:3000";
 
 const LoginPage = () => {
-  const [activeTab, setActiveTab] = useState('student');
+  const [activeTab, setActiveTab] = useState("student");
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    remember: false
+    email: "",
+    password: "",
+    remember: false,
   });
-  const [errorMessage, setErrorMessage] = useState('');
-  
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
+
   // Switch between tabs (student/teacher)
   const switchTab = (tab) => {
     setActiveTab(tab);
@@ -21,25 +25,25 @@ const LoginPage = () => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
   // Form validation before submission
   const validateForm = () => {
     if (!formData.email || !formData.password) {
-      setErrorMessage('Email and password are required.');
+      setErrorMessage("Email and password are required.");
       return false;
     }
 
     // Basic email validation
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(formData.email)) {
-      setErrorMessage('Please enter a valid email address.');
+      setErrorMessage("Please enter a valid email address.");
       return false;
     }
 
-    setErrorMessage('');
+    setErrorMessage("");
     return true;
   };
 
@@ -54,31 +58,37 @@ const LoginPage = () => {
     const dataToSend = {
       email: formData.email,
       password: formData.password,
-      remember: formData.remember,
-      role: activeTab === 'student' ? 'student' : 'teacher' // Determine role based on active tab
+      // remember: formData.remember,
+      role: activeTab === "student" ? "user" : "teacher", // Determine role based on active tab
     };
 
     // Send data to API
-    fetch('/api/login', {
-      method: 'POST',
+    fetch(`${BACKEND_URL}/account/login`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(dataToSend)
+      body: JSON.stringify(dataToSend),
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
+        if (data.user !== null || data.user !== undefined) {
           // Redirect to dashboard or appropriate page
-          window.location.href = '/teacher-dashboard'; // Example redirect
+          if (data.user.role === "user") {
+            navigate("/");
+          } else if (data.user.role === "teacher") {
+            navigate("/contact");
+          } else {
+            setErrorMessage("Invalid role. Please try again.");
+          }
         } else {
-          setErrorMessage(data.message || 'Login failed');
+          setErrorMessage(data.message || "Login failed");
         }
       })
       .catch((error) => {
-        console.error('Error:', error); // Log the error to the console
-        setErrorMessage('An error occurred. Please try again.'); // Display a generic error message
-      });      
+        console.error("Error:", error); // Log the error to the console
+        setErrorMessage("An error occurred. Please try again."); // Display a generic error message
+      });
   };
 
   return (
@@ -90,14 +100,18 @@ const LoginPage = () => {
 
         <div className="tab-selection">
           <div
-            className={`tab-item ${activeTab === 'student' ? 'active-tab' : ''}`}
-            onClick={() => switchTab('student')}
+            className={`tab-item ${
+              activeTab === "student" ? "active-tab" : ""
+            }`}
+            onClick={() => switchTab("student")}
           >
             Student
           </div>
           <div
-            className={`tab-item ${activeTab === 'teacher' ? 'active-tab' : ''}`}
-            onClick={() => switchTab('teacher')}
+            className={`tab-item ${
+              activeTab === "teacher" ? "active-tab" : ""
+            }`}
+            onClick={() => switchTab("teacher")}
           >
             Teacher
           </div>
@@ -105,7 +119,7 @@ const LoginPage = () => {
 
         {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-        {activeTab === 'student' && (
+        {activeTab === "student" && (
           <form className="login-form-student" onSubmit={handleSubmit}>
             <div className="form-input-group">
               <label htmlFor="student-email">Email or Student ID</label>
@@ -146,11 +160,13 @@ const LoginPage = () => {
               <label htmlFor="student-remember">Remember me</label>
             </div>
 
-            <button type="submit" className="login-button">Log In</button>
+            <button type="submit" className="login-button">
+              Log In
+            </button>
           </form>
         )}
 
-        {activeTab === 'teacher' && (
+        {activeTab === "teacher" && (
           <form className="login-form-teacher" onSubmit={handleSubmit}>
             <div className="form-input-group">
               <label htmlFor="teacher-email">Email Address</label>
@@ -191,7 +207,9 @@ const LoginPage = () => {
               <label htmlFor="teacher-remember">Remember me</label>
             </div>
 
-            <button type="submit" className="login-button">Log In</button>
+            <button type="submit" className="login-button">
+              Log In
+            </button>
           </form>
         )}
 
