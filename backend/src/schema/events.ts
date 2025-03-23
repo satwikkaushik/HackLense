@@ -21,11 +21,14 @@ const EventSchema = new Schema({
         type: Date,
         required: true
     },
-    rubric: {
+    parameters: [{
         type: Schema.Types.ObjectId,
-        ref: "rubrics",
-        required: true
-    },
+        ref: "parameters"
+    }],
+    keywords: [{
+        type: Schema.Types.ObjectId,
+        ref: "keywords"
+    }],
     participants: [{
         type: Schema.Types.ObjectId,
         ref: "users"
