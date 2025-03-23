@@ -5,6 +5,7 @@ import {
   findUserByEmail,
 } from "@/services/dbService";
 import { CreateUser, LoginUser } from "@/types/user";
+import { hashPassword, comparePassword } from "@/services/passwordService";
 
 export async function accountSignup(req: Request, res: Response) {
   const details: CreateUser = req.body;
@@ -22,11 +23,19 @@ export async function accountSignup(req: Request, res: Response) {
 
   try {
     // checking if user already exists
-    const userExists = await findUserByEmail(details.email);
-    if (userExists) {
+    const existingUser = await findUserByEmail(details.email);
+    if (existingUser !== null) {
       res.status(400).json({ message: "User already exists" });
       return;
     }
+
+    // hashing password
+    const hashedPassword = await hashPassword(details.password);
+    if (!hashedPassword) {
+      throw new Error("Password hashing failed");
+    }
+
+    details.password = hashedPassword;
 
     // creating new user
     const user = await signupService(details);
@@ -46,13 +55,20 @@ export async function accountLogin(req: Request, res: Response) {
   }
 
   try {
-    const emailExists = await findUserByEmail(details.email);
-    if (!emailExists) {
+    // checking if user exists
+    const user = await findUserByEmail(details.email);
+    if (user === null || user.role !== details.role) {
       res.status(401).json({ message: "Invalid Credentials" });
       return;
     }
 
-    const user = await loginService(details);
+    // comparing passwords
+    const match = await comparePassword(details.password, user.password);
+    if (!match) {
+      res.status(401).json({ message: "Invalid Credentials" });
+      return;
+    }
+
     if (user === null) {
       res.status(401).json({ message: "Invalid Credentials" });
       return;

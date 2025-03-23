@@ -22,11 +22,11 @@ export async function loginService(details: LoginUser) {
 
 export async function findUserByEmail(email: string) {
   try {
-    const user: CreateUser[] | null = await User.findOne({ email: email });
-    if (user === null || user.length === 0) {
-      return Promise.resolve(false);
+    const user: CreateUser | null = await User.findOne({ email: email });
+    if (user !== null) {
+      return Promise.resolve(user);
     } else {
-      return Promise.resolve(true);
+      return Promise.resolve(null);
     }
   } catch (error) {
     return Promise.reject(error);

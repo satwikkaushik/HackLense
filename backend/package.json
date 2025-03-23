@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.1",
     "@types/mongoose": "^5.11.96",
     "@types/morgan": "^1.9.9",
@@ -22,6 +23,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
