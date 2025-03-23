@@ -14,3 +14,13 @@ export interface LoginUser {
   password: string;
   role: "admin" | "teacher" | "user";
 }
+
+export interface UserInTransit {
+  name: string;
+  username: string;
+  email: string;
+  role: "admin" | "teacher" | "user";
+  access?: "admin" | "editor" | "viewer";
+  department?: string;
+  designation?: string;
+}
