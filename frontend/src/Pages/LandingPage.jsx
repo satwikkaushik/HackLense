@@ -1,8 +1,20 @@
 import React, { useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { Element } from "react-scroll";
 import './LandingPage.css';
 
 const LandingPage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
+
   useEffect(() => {
     // Function to check if an element is in viewport
     function isInViewport(element) {
@@ -42,7 +54,7 @@ const LandingPage = () => {
         <Link to="/signup-page"><button className='learn-more'>Get Started</button></Link>
       </section>
       
-      <section id="features" className="features">
+      <Element name='feature-section'><section id="features" className="features">
         <h2>Platform Features</h2>
         <div className="features-grid">
           <div className="feature-card">
@@ -76,7 +88,7 @@ const LandingPage = () => {
             <p>Enjoy peace of mind with our robust security measures and privacy controls.</p>
           </div>
         </div>
-      </section>
+      </section></Element>
       
       <section id="signup" className="signup-section">
         <h2>Join Our Educational Community</h2>
@@ -89,7 +101,7 @@ const LandingPage = () => {
       </section>
       
       <footer>
-        <p>&copy; 2025 EduConnect. All rights reserved.</p>
+        <p>&copy; 2025 HackLense. All rights reserved.</p>
       </footer>
     </div>
   );

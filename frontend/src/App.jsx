@@ -7,11 +7,13 @@ import Navbar from "./components/Navbar";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
 import ContactPage from "./Pages/ContactPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <>
       <Navbar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         {/* <Route path="/teacher-dashboard" element={<TeacherDashboard />} /> */}

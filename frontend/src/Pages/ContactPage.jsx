@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import './ContactPage.css';
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 
 const ContactPage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -128,7 +139,7 @@ const ContactPage = () => {
       </section>
 
       {/* Map Section */}
-      <div className="map-section">
+      <div id = "find-us" className="map-section">
       <h2>Find Us</h2>
       <iframe
         className="map-frame"

@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import "./navbar.css";
 
 const Navbar = () => {
+    const handleClick = () => {
+        window.scrollTo(0, 0); 
+      };
+
     const [user, setUser] = useState(null);  // Store user info (null = not logged in)
 
     useEffect(() => {
@@ -20,9 +24,10 @@ const Navbar = () => {
             </div>
             
             <div className="navbar-menu">
-                <Link to="/" className="navbar-item">Home</Link>
-                <a href="#features" className="navbar-item">Features</a>
-                <Link to="/contact" className="navbar-item">Contact</Link>
+                <Link to="/" onClick={handleClick} className="navbar-item">Home</Link>
+                <Link to="/#features" className="navbar-item">Features</Link>
+                <Link to="/contact"  onClick={handleClick} className="navbar-item">Contact</Link>
+                <Link to="/contact#find-us" className="navbar-item">Find Us</Link>
             </div>
 
             <div className="navbar-actions">
@@ -31,9 +36,9 @@ const Navbar = () => {
                         <img src={user.profilePic} alt="User" className="profile-pic" />
                     </div>
                 ) : (
-                    <a href="#signup">
+                    <Link to="/#signup">
                          <button className="login-btn">Login / SignUp</button>
-                    </a>
+                    </Link>
                 )}
             </div>
         </div>
