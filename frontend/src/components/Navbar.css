@@ -1,51 +1,353 @@
-.navbar {
-    position: fixed;
-    margin-top: 0px;
-    background-color: #0D1321;
-    color: #F0EBD8;
-    padding: 1rem 2rem;
+/* Variables for color palette */
+:root {
+    --deep-dark: #0D1321;
+    --dark-blue: #1D2D44;
+    --medium-blue: #3E5C76;
+    --light-blue: #748CAB;
+    --cream: #f5f2ea;
+  }
+  
+  /* Base styles */
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--deep-dark);
+    color: var(--cream);
+  }
+  
+  /* Navbar container with gradient and texture */
+  .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: var(--deep-dark);
+    padding: 0.8rem 2rem;
+    box-shadow: 0 4px 20px rgba(13, 19, 33, 0.7);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-bottom: 1px solid rgba(240, 235, 216, 0.1);
+    backdrop-filter: blur(5px);
+  }
+  
+  .navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    z-index: 100;
-}
-
-.navbar-logo img {
-    height: 50px; 
-    width: auto;
-}
-
-.navbar-menu {
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23748CAB' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    opacity: 0.3;
+    z-index: -1;
+  }
+  
+  .navbar:hover {
+    box-shadow: 0 8px 30px rgba(13, 19, 33, 0.8);
+    transform: translateY(-2px);
+  }
+  
+  /* Logo styles with animated glow effect */
+  .navbar-logo a {
+    color: var(--cream);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.4s ease;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(240, 235, 216, 0);
+  }
+  
+  .navbar-logo a:hover {
+    color: var(--cream);
+    text-shadow: 0 0 10px rgba(240, 235, 216, 0.7);
+    letter-spacing: 2px;
+  }
+  
+  .navbar-logo a::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--light-blue), transparent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .navbar-logo a:hover::before {
+    transform: scaleX(1);
+  }
+  
+  /* Menu styles with hover effect */
+  .navbar-menu {
     display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar-item {
-    margin-left: 2rem;
-    color: #F0EBD8;
+    gap: 2.5rem;
+  }
+  
+  .navbar-item {
+    color: var(--cream);
     text-decoration: none;
     font-size: 1rem;
-    transition: color 0.3s ease-in-out;
-}
-
-.navbar-item:hover {
-    color: #748CAB;
-}
-
-.navbar-actions .login-btn {
-    background-color: transparent;
-    color: #F0EBD8;
-    border: 2px solid #F0EBD8;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+    position: relative;
+    padding: 0.5rem 0;
+    opacity: 0.85;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .navbar-item:hover {
+    opacity: 1;
+    color: var(--cream);
+    transform: translateY(-2px);
+  }
+  
+  .navbar-item::before, .navbar-item::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: var(--light-blue);
+    border-radius: 50%;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    opacity: 0;
+  }
+  
+  .navbar-item::before {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-10px);
+  }
+  
+  .navbar-item::after {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(2px);
+  }
+  
+  .navbar-item:hover::before {
+    opacity: 1;
+    transform: translateX(-15px);
+  }
+  
+  .navbar-item:hover::after {
+    opacity: 1;
+    transform: translateX(7px);
+  }
+  
+  /* Advanced creative button styles */
+  .login-btn {
+    background: linear-gradient(45deg, var(--medium-blue), var(--light-blue));
+    color: var(--cream);
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 50px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.navbar-actions .login-btn:hover {
-    background-color: #748CAB;
-    color: #0D1321;
-}
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(13, 19, 33, 0.3);
+    z-index: 1;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+  
+  .login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--light-blue), var(--medium-blue));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
+  
+  .login-btn::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--light-blue), var(--cream), var(--medium-blue));
+    z-index: -2;
+    border-radius: 50px;
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+  
+  .login-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 7px 20px rgba(13, 19, 33, 0.4);
+    color: var(--cream);
+  }
+  
+  .login-btn:hover::before {
+    opacity: 1;
+  }
+  
+  .login-btn:hover::after {
+    opacity: 1;
+    filter: blur(10px);
+    animation: glowPulse 1.5s infinite alternate;
+  }
+  
+  .login-btn:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 10px rgba(13, 19, 33, 0.3);
+  }
+  
+  /* Profile section with creative animation */
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    box-shadow: 0 0 0 2px var(--medium-blue);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: saturate(0.9);
+  }
+  
+  .profile-section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: conic-gradient(
+      var(--light-blue),
+      var(--cream),
+      var(--medium-blue),
+      var(--dark-blue),
+      var(--light-blue)
+    );
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transform: scale(1.1);
+    transition: all 0.4s ease;
+  }
+  
+  .profile-section:hover .profile-pic {
+    transform: scale(1.1);
+    filter: saturate(1.2) brightness(1.1);
+    box-shadow: 0 0 0 3px var(--light-blue);
+  }
+  
+  .profile-section:hover::before {
+    opacity: 1;
+    animation: spin 4s linear infinite;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 0.7rem 1.2rem;
+      flex-wrap: wrap;
+    }
+    
+    .navbar-menu {
+      order: 3;
+      width: 100%;
+      justify-content: space-around;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(240, 235, 216, 0.1);
+    }
+    
+    .navbar-logo, .navbar-actions {
+      flex: 1;
+    }
+    
+    .navbar-logo a {
+      font-size: 1.5rem;
+    }
+    
+    .navbar-actions {
+      justify-content: flex-end;
+    }
+    
+    .login-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  /* Advanced animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes glowPulse {
+    0% { opacity: 0.5; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.05); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes floatIn {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  
+  .navbar {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .navbar-item {
+    animation: floatIn 0.5s ease-out forwards;
+    animation-fill-mode: both;
+  }
+  
+  .navbar-item:nth-child(1) { animation-delay: 0.1s; }
+  .navbar-item:nth-child(2) { animation-delay: 0.2s; }
+  .navbar-item:nth-child(3) { animation-delay: 0.3s; }
+  
+  .login-btn {
+    animation: floatIn 0.5s ease-out forwards;
+    animation-delay: 0.4s;
+    animation-fill-mode: both;
+  }
+  
+  /* Active state for current page with creative indicator */
+  .navbar-item.active {
+    color: var(--cream);
+    opacity: 1;
+  }
+  
+  .navbar-item.active::before, 
+  .navbar-item.active::after {
+    opacity: 1;
+    background-color: var(--cream);
+  }
+  
+  .navbar-item.active::before {
+    transform: translateX(-15px);
+  }
+  
+  .navbar-item.active::after {
+    transform: translateX(7px);
+  }

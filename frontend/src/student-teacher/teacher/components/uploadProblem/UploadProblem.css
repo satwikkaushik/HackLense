@@ -1,0 +1,374 @@
+/* App.css - Updated with larger sizes and two-column layout */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --dark-blue: #0D1321;
+  --navy-blue: #1D2D44;
+  --blue: #3E5C76;
+  --light-blue: #748CAB;
+  --cream: #F0EBD8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--navy-blue);
+  color: var(--cream);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Full screen block with decent margin */
+.app-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px;
+  padding: 30px;
+}
+
+.card {
+  background-color: var(--dark-blue);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  width: 100%;
+}
+
+.title {
+  color: var(--cream);
+  font-size: 36px;
+  margin-bottom: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: var(--light-blue);
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 18px;
+}
+
+/* Two-column layout for form content */
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+}
+
+.content-left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  color: var(--light-blue);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+input, textarea {
+  padding: 16px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--blue);
+  background-color: rgba(62, 92, 118, 0.2);
+  color: var(--cream);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--light-blue);
+  box-shadow: 0 0 0 3px rgba(116, 140, 171, 0.3);
+}
+
+.parameter-input {
+  margin-bottom: 15px;
+}
+
+.parameter-add {
+  display: flex;
+  gap: 12px;
+}
+
+.parameter-add input {
+  flex: 1;
+}
+
+.add-btn {
+  background-color: var(--blue);
+  color: var(--cream);
+  border: none;
+  border-radius: 10px;
+  padding: 0 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.add-btn:hover {
+  background-color: var(--light-blue);
+  transform: translateY(-2px);
+}
+
+.add-btn:disabled {
+  background-color: var(--blue);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.parameter-limit {
+  color: var(--light-blue);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.parameters-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.parameter-tag {
+  background-color: var(--blue);
+  color: var(--cream);
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+  background-color: rgba(240, 235, 216, 0.2);
+}
+
+.parameters-container {
+  background-color: rgba(29, 45, 68, 0.5);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 25px;
+}
+
+.parameters-container h3 {
+  color: var(--light-blue);
+  font-size: 18px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.parameter-item {
+  background-color: var(--blue);
+  color: var(--cream);
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: move;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.parameter-item:hover {
+  background-color: #4a6b88;
+  transform: translateY(-2px);
+}
+
+.parameter-item.dragging {
+  opacity: 0.5;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.drag-handle {
+  color: var(--cream);
+  opacity: 0.7;
+  width: 24px;
+  height: 24px;
+}
+
+.parameter-priority {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: var(--navy-blue);
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.parameter-name {
+  flex: 1;
+  font-size: 17px;
+}
+
+.error {
+  color: #ff6b6b;
+  padding: 14px;
+  border-radius: 10px;
+  background-color: rgba(255, 107, 107, 0.1);
+  text-align: center;
+  font-size: 16px;
+}
+
+.submit-btn {
+  background-color: var(--light-blue);
+  color: var(--dark-blue);
+  border: none;
+  border-radius: 10px;
+  padding: 18px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.submit-btn:hover {
+  background-color: var(--cream);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(240, 235, 216, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submit-btn.submitting {
+  background-color: var(--blue);
+  color: var(--cream);
+}
+
+.submit-btn.success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid transparent;
+  border-top-color: var(--cream);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Hide default calendar icon (works in Chrome) */
+/* input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+} */
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 15px;
+    margin: 15px;
+  }
+  
+  .card {
+    padding: 30px;
+  }
+  
+  .title {
+    font-size: 28px;
+  }
+  
+  .subtitle {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .content-wrapper {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  .card {
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+  }
+  
+  .parameter-add {
+    flex-direction: column;
+  }
+}

@@ -1,168 +1,313 @@
-/* Container for the entire page */
+/* SignUpPage.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0D1321;
+  color: #F0EBD8;
+}
+
 .signup-page-container {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align items to the top */
-  min-height: 100vh;
-  width: 100vw;
-  background-color: #F0EBD8; /* Light background color */
-  padding-top: 60px; /* Add padding-top to avoid overlap with navbar */
+  align-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #0D1321 0%, #1D2D44 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-/* The container for the form card */
+/* Background animated elements */
+.signup-page-container::before,
+.signup-page-container::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(62, 92, 118, 0.1);
+  z-index: 0;
+}
+
+.signup-page-container::before {
+  top: -100px;
+  right: -100px;
+  animation: float 15s infinite ease-in-out;
+}
+
+.signup-page-container::after {
+  bottom: -100px;
+  left: -100px;
+  animation: float 18s infinite ease-in-out reverse;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(40px, 40px) rotate(180deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
 .signup-card-container {
+  background: rgba(29, 45, 68, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(13, 19, 33, 0.5);
+  padding: 1.8rem;
   width: 100%;
-  max-width: 400px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 20px;
+  max-width: 500px;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(116, 140, 171, 0.3);
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.signup-header {
   text-align: center;
-  background-color: #FFFFFF; /* White background for the form card */
-  border: 1px solid #3E5C76; /* Border using one of the primary colors */
+  margin-bottom: 1.5rem;
 }
 
-/* Header text for the page */
 .signup-header h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #0D1321; /* Dark blue-black color */
+  color: #F0EBD8;
+  font-weight: 600;
+  font-size: 2.2rem;
+  position: relative;
+  display: inline-block;
 }
 
-/* Styling for the tab selection */
+.signup-header h1::after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 3px;
+  background: linear-gradient(90deg, #3E5C76, #748CAB);
+  bottom: -10px;
+  left: 25%;
+  border-radius: 2px;
+}
+
 .tab-selection {
   display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  background-color: #1D2D44;
+  border: 1px solid #3E5C76;
 }
 
 .tab-item {
-  padding: 10px 20px;
-  font-size: 1rem;
+  flex: 1;
+  text-align: center;
+  padding: 0.8rem;
   cursor: pointer;
-  border: 1px solid #3E5C76; /* Border color from the palette */
-  border-radius: 5px;
-  color: #1D2D44; /* Darker blue-gray for the tab text */
-  background-color: #F0EBD8; /* Light background for tabs */
+  color: #748CAB;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  background-color: #1D2D44;
+}
+
+.tab-item:hover {
+  color: #F0EBD8;
+  background-color: rgba(62, 92, 118, 0.3);
 }
 
 .active-tab {
-  background-color: #1D2D44; /* Active tab background */
-  color: white; /* Active tab text color */
-  border-color: #1D2D44; /* Border color when active */
+  background-color: #F0EBD8;
+  color: #1D2D44;
+  box-shadow: 0 4px 15px rgba(13, 19, 33, 0.2);
 }
 
-/* Form input groups */
+.signup-form-student,
+.signup-form-teacher {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .form-input-group {
-  margin-bottom: 15px;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 .form-input-group label {
-  font-size: 1rem;
-  color: #1D2D44; /* Dark text for the label */
+  color: #748CAB;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
 }
 
-.form-input-group input, 
+.form-input-group input,
 .form-input-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #3E5C76; /* Border color from the palette */
-  border-radius: 5px;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 2px solid rgba(116, 140, 171, 0.3);
+  background-color: rgba(240, 235, 216, 0.05);
+  color: #F0EBD8;
   font-size: 1rem;
-  color: #0D1321; /* Dark input text color */
-  margin-top: 5px;
+  transition: all 0.3s;
+  outline: none;
 }
 
-.form-input-group select {
-  cursor: pointer;
+.form-input-group input:focus,
+.form-input-group select:focus {
+  border-color: #748CAB;
+  box-shadow: 0 0 0 3px rgba(116, 140, 171, 0.2);
 }
 
-/* Button styling */
+.form-input-group input:focus + label,
+.form-input-group select:focus + label {
+  color: #F0EBD8;
+}
+
 .signup-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #3E5C76; /* Button background using the primary color */
-  color: white;
+  margin-top: 1.2rem;
+  padding: 0.9rem;
+  border-radius: 10px;
   border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
+  background: linear-gradient(135deg, #3E5C76 0%, #748CAB 100%);
+  color: #F0EBD8;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 4px 15px rgba(13, 19, 33, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
 .signup-button:hover {
-  background-color: #748CAB; /* Slightly lighter shade on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(13, 19, 33, 0.3);
 }
 
-/* Forgot password and other links */
-.forgot-password-link {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #1D2D44; /* Dark text for links */
-  text-align: left;
+.signup-button:active {
+  transform: translateY(1px);
 }
 
-.forgot-password-link a {
-  text-decoration: none;
-  color: #1D2D44; /* Dark text for the link */
+.signup-button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: linear-gradient(90deg, 
+    rgba(240, 235, 216, 0), 
+    rgba(240, 235, 216, 0.2), 
+    rgba(240, 235, 216, 0));
+  transition: all 0.5s ease;
 }
 
-.forgot-password-link a:hover {
-  text-decoration: underline;
+.signup-button:hover::after {
+  left: 100%;
 }
 
-/* Footer section for the "already have an account" link */
 .signup-footer {
-  margin-top: 15px;
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #748CAB;
   font-size: 0.9rem;
-  color: #1D2D44; /* Dark footer text */
 }
 
 .signup-footer a {
-  color: #1D2D44; /* Dark text for the footer link */
+  color: #F0EBD8;
   text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 2px;
 }
 
-.signup-footer a:hover {
-  text-decoration: underline;
+.signup-footer a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #748CAB;
+  transition: width 0.3s ease;
 }
 
-/* Adjustments for the teacher's form to avoid overlap with the navbar */
-.signup-form-teacher {
-  margin-top: 20px; /* Add top margin for the teacher's form */
+.signup-footer a:hover::after {
+  width: 100%;
 }
 
-/* Specific styling for teacher form fields */
-.signup-form-teacher .form-input-group label {
-  font-weight: bold;
-}
-
-/* Different styling for teacher form, ensuring proper layout */
-.signup-form-teacher input, 
-.signup-form-teacher select {
-  background-color: #E9F0F7; /* Light blue background for teacher form inputs */
-  border: 1px solid #748CAB; /* Use a lighter border color for teacher form */
-}
-
-/* Add extra margin to ensure the form is not hidden under the navbar when switched to teacher tab */
-.signup-card-container {
-  margin-top: 80px; /* Increased margin to ensure no overlap with navbar */
-}
-
-/* Mobile responsiveness */
-@media (max-width: 600px) {
+/* Responsive Adjustments */
+@media (max-width: 768px) {
   .signup-card-container {
-    width: 90%;
+    padding: 1.3rem;
   }
-
-  .tab-selection {
-    flex-direction: column;
+  
+  .signup-header h1 {
+    font-size: 1.8rem;
   }
-
+  
   .tab-item {
-    margin-bottom: 10px;
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+  
+  .form-input-group input,
+  .form-input-group select,
+  .signup-button {
+    padding: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-page-container {
+    padding: 0.8rem;
+  }
+  
+  .signup-card-container {
+    padding: 1rem;
+  }
+  
+  .signup-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tab-item {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+  
+  .form-input-group label {
+    font-size: 0.8rem;
+  }
+  
+  .form-input-group input,
+  .form-input-group select {
+    font-size: 0.9rem;
+  }
+  
+  .signup-button {
+    font-size: 0.9rem;
+  }
+  
+  .signup-footer {
+    font-size: 0.8rem;
   }
 }
