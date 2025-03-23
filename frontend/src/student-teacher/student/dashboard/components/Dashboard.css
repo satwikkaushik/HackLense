@@ -49,7 +49,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-fill-color: transparent;
+    /* text-fill-color: transparent; */
     letter-spacing: -0.5px;
   }
   
@@ -76,7 +76,7 @@
   
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(90deg, #4c6b85, #cbd4df);
     border-radius: 4px;
     transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -84,7 +84,7 @@
   .completion-text {
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--primary-color);
+    color: #e0e0e09b;
   }
   
   /* Stats Container */
@@ -268,7 +268,7 @@
   
   .view-mode-btn {
     background: none;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(106, 103, 103, 0.866);
     border-radius: 8px;
     width: 36px;
     height: 36px;
@@ -288,8 +288,15 @@
   .view-mode-btn.active {
     color: var(--primary-color);
     background-color: rgba(62, 92, 118, 0.1);
-    border-color: var(--primary-color);
+    border-color: #f1f1f1;
   }
+  .view {
+    display: flex;
+    font-size: larger;
+    align-items: center;
+    color: #F0EBD8;
+  }  
+  
   
   /* Assignments List */
   .assignments-list {
@@ -917,17 +924,10 @@
     animation-delay: calc(var(--card-index) * 0.05s);
   }
   
-  /* Pin Button Animation */
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
   
   .pin-button.pinned:hover::before {
-    content: '📌';
     display: inline-block;
     margin-right: 4px;
-    animation: spin 1s linear;
   }
   
   /* Focus states for accessibility */
