@@ -128,30 +128,33 @@ input:focus, textarea:focus {
 }
 
 .add-btn {
-  background-color: var(--blue);
-  color: var(--cream);
+  background-color: var(--cream);
+  color: var(--blue);
   border: none;
   border-radius: 10px;
-  padding: 0 20px;
+  padding: 20px;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.3s ease;
   font-size: 16px;
+  height: fit-content;
 }
 
 .add-btn:hover {
   background-color: var(--light-blue);
+  color: var(--cream);
   transform: translateY(-2px);
 }
 
 .add-btn:disabled {
   background-color: var(--blue);
+  color: var(--cream);
   opacity: 0.5;
   cursor: not-allowed;
 }
 
 .parameter-limit {
-  color: var(--light-blue);
+  color: var(--cream);
   font-size: 14px;
   margin-top: 8px;
 }

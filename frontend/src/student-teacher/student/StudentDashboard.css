@@ -38,7 +38,7 @@ body {
 
 /* Fixed SideCalendar */
 .side-calendar {
-  margin-top: 70px;
+  margin-top: 97px;
   position: fixed;
   right: 0;
   top: 0;
@@ -52,6 +52,7 @@ body {
 
 /* Dashboard will now fill the remaining space on the right */
 .main-content {
+  margin-top: 10px;
   margin-right: 320px; /* Equal to the sidebar width */
   flex: 1;
   padding: 1rem;

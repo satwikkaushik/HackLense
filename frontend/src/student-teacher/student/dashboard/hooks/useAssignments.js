@@ -98,6 +98,7 @@ export const useAssignment = () => {
   
   return {
     assignments,
+    setAssignments,
     loading
   };
 };

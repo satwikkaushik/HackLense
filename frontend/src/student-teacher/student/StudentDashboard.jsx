@@ -28,14 +28,15 @@ function StudentDashboard() {
 
   return (
     <div className="app">
-      <Navbar notifications={notifications} />
+      {/* <Navbar notifications={notifications} /> */}
       {/* The SideCalendar will be fixed (using its own CSS) */}
-      <SideCalendar />
+      
       <div className="main-content">
         <Dashboard 
           addNotification={addNotification} 
           updateAssignments={updateAssignments} 
         />
+        <SideCalendar />
       </div>
       {showNotification && <Notification notification={notificationContent} />}
     </div>

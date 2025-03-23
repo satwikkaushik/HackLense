@@ -1,11 +1,12 @@
-// npm install react-dnd react-dnd-html5-backend framer-motion
-
 import React, { useState, useEffect } from 'react';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { motion, AnimatePresence } from 'framer-motion';
 import './UploadProblem.css';
-import { usedefaultParameter} from '../hooks/useDefaultParameters';
+import { usedefaultParameter } from '../hooks/useDefaultParameters';
+
+
+// ON Success : redirect to Dashboard!
 
 const ItemTypes = {
   PARAMETER: 'parameter',
@@ -82,23 +83,42 @@ const ParameterList = ({ parameters, setParameters }) => {
   );
 };
 
-function App() {
+function UploadProblem() {
   const [problemStatement, setProblemStatement] = useState('');
-  const [problemDescription, setProblemDescription] = useState('');
   const [paramName, setParamName] = useState('');
+  const [paramDescription, setParamDescription] = useState('');
   const [parameters, setParameters] = useState([]);
+  const [startDate, setStartDate] = useState(getCurrentDate());
+  const [lastDate, setLastDate] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
-  const {defaultParameters, setDefaultParameters} = usedefaultParameter();
+  const { defaultParameters, setDefaultParameters } = usedefaultParameter();
+
+  function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+    
+    month = month < 10 ? `0${month}` : month;
+    day = day < 10 ? `0${day}` : day;
+    
+    return `${year}-${month}-${day}`;
+  }
 
   const addParameter = () => {
     if (paramName.trim() && parameters.length < 5) {
       setParameters([
         ...parameters,
-        { id: Date.now().toString(), name: paramName.trim() },
+        { 
+          id: Date.now().toString(), 
+          name: paramName.trim(),
+          description: paramDescription.trim() || 'No description provided'
+        },
       ]);
       setParamName('');
+      setParamDescription('');
     } else if (parameters.length >= 5) {
       setError('Maximum 5 parameters allowed');
       setTimeout(() => setError(''), 3000);
@@ -107,10 +127,11 @@ function App() {
       setTimeout(() => setError(''), 3000);
     }
   };
+
   const removeDefaultParameter = (id) => {
-    
     setDefaultParameters(defaultParameters.filter((param) => param.id !== id));
   };
+
   const removeParameter = (id) => {
     setParameters(parameters.filter((param) => param.id !== id));
   };
@@ -130,20 +151,31 @@ function App() {
       return;
     }
 
+    if (!lastDate) {
+      setError('Last date is required');
+      setTimeout(() => setError(''), 3000);
+      return;
+    }
+
     setIsSubmitting(true);
 
     // Create the final object with priorities
     const finalData = {
       problemStatement,
-      problemDescription,
-      parameters: parameters.map((param, index) => ({
-        id: param.id,
-        name: param.name,
-        priority: index + 1,
-      })),
+      startDate,
+      lastDate,
     };
 
+    // Create separate parameters object with descriptions
+    const finalDataParameters = parameters.map((param, index) => ({
+      id: param.id,
+      name: param.name,
+      description: param.description,
+      priority: index + 1,
+    }));
+
     console.log('Submitting data:', finalData);
+    console.log('Parameters data:', finalDataParameters);
 
     // Simulate API call
     try {
@@ -154,8 +186,10 @@ function App() {
       setTimeout(() => {
         setIsSuccess(false);
         setProblemStatement('');
-        setProblemDescription('');
+        set('');
         setParameters([]);
+        setStartDate(getCurrentDate());
+        setLastDate('');
       }, 2000);
     } catch (err) {
       setError('Failed to submit. Please try again.');
@@ -184,7 +218,6 @@ function App() {
                 <div className="form-group">
                   <label htmlFor="problemStatement">Problem Statement *</label>
                   <textarea
-                    // type="text"
                     id="problemStatement"
                     value={problemStatement}
                     onChange={(e) => setProblemStatement(e.target.value)}
@@ -192,41 +225,81 @@ function App() {
                     required
                   />
                 </div>
-
                 <div className="form-group">
-                  <label htmlFor="problemDescription">Problem Description</label>
-                  <textarea
-                    id="problemDescription"
-                    value={problemDescription}
-                    onChange={(e) => setProblemDescription(e.target.value)}
-                    placeholder="Provide additional details about the problem"
-                    rows={4}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="problemStatement">Problem Statement *</label>
-                  <input class="custom-date"
+                  <label htmlFor="startDate">Start Date *</label>
+                  <input className="custom-date"
                     type="date"
                     id="startDate"
-                    value={problemStatement}
-                    onChange={(e) => setProblemStatement(e.target.value)}
-                    placeholder="Enter Start Day"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
                     required
                   />
                 </div>
 
                 <div className="form-group"> 
-                  <label htmlFor="problemStatement">Problem Statement *</label>
-                  <input class="custom-date"
+                  <label htmlFor="lastDate">Last Date *</label>
+                  <input className="custom-date"
                     type="date"
-                    id="endDate"
-                    value={problemStatement}
-                    onChange={(e) => setProblemStatement(e.target.value)}
+                    id="lastDate"
+                    value={lastDate}
+                    onChange={(e) => setLastDate(e.target.value)}
                     placeholder="Enter End Date"
                     required
                   />
                 </div>
+                <div className="form-group">
+                <label>Added Parameters</label>
+                <div className="parameters-list">
+                    {parameters.length > 0 ? (
+                    parameters.map((param) => (
+                        <motion.div 
+                        key={param.id} 
+                        className="parameter-tag"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.3 }}
+                        >
+                        {param.name}: {param.description}
+                        <button
+                            type="button"
+                            className="remove-btn"
+                            onClick={() => removeParameter(param.id)}
+                        >
+                            ×
+                        </button>
+                        </motion.div>
+                    ))
+                    ) : (
+                    <p className="parameter-limit">(No parameters added yet)</p>
+                    )}
+                </div>
+                </div>
+                {/* <div className="form-group">
+                  <label htmlFor="defaultParams">Default Parameters</label>
+                  <div className="parameters-list">
+                    <label>(Default parameters to evaluate are listed below. You can remove or add your own in the Add Parameters section.)</label>
+                    {defaultParameters.map((param) => (
+                      <motion.div 
+                        key={param.id} 
+                        className="parameter-tag"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {param.name}
+                        <button
+                          type="button"
+                          className="remove-btn"
+                          onClick={() => removeDefaultParameter(param.id)}
+                        >
+                          ×
+                        </button>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div> */}
               </div>
               
               {/* Right column: Parameters */}
@@ -239,75 +312,97 @@ function App() {
                       id="paramName"
                       value={paramName}
                       onChange={(e) => setParamName(e.target.value)}
-                      placeholder="Enter parameter"
+                      placeholder="Enter parameter name"
                       disabled={parameters.length >= 5}
                     />
-                    <button
-                      type="button"
-                      onClick={addParameter}
-                      className="add-btn"
-                      disabled={parameters.length >= 5}
-                    >
-                      Add
-                    </button>
                   </div>
+                  
+                  <label htmlFor="paramDescription">Parameter Description</label>
+                  <textarea
+                    id="paramDescription"
+                    value={paramDescription}
+                    onChange={(e) => setParamDescription(e.target.value)}
+                    placeholder="Enter parameter description"
+                    disabled={parameters.length >= 5}
+                  />
+                  
+                  <button
+                    type="button"
+                    onClick={addParameter}
+                    className="add-btn"
+                    disabled={parameters.length >= 5 || !paramName.trim()}
+                  >
+                    Add Parameter
+                  </button>
+                  
                   {parameters.length >= 5 && (
                     <p className="parameter-limit">Maximum limit reached (5/5)</p>
                   )}
                 </div>
-
+                    
                 {parameters.length > 0 && (
                   <ParameterList 
                     parameters={parameters} 
                     setParameters={setParameters} 
                   />
                 )}
-
+                {/* <div className="form-group">
+                <label>Added Parameters</label>
                 <div className="parameters-list">
-                  {parameters.map((param) => (
-                    <motion.div 
-                      key={param.id} 
-                      className="parameter-tag"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {param.name}
-                      <button
-                        type="button"
-                        className="remove-btn"
-                        onClick={() => removeParameter(param.id)}
-                      >
-                        ×
-                      </button>
-                    </motion.div>
-                  ))}
+                    {parameters.length > 0 ? (
+                    parameters.map((param) => (
+                        <motion.div 
+                        key={param.id} 
+                        className="parameter-tag"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.3 }}
+                        >
+                        {param.name}: {param.description}
+                        <button
+                            type="button"
+                            className="remove-btn"
+                            onClick={() => removeParameter(param.id)}
+                        >
+                            ×
+                        </button>
+                        </motion.div>
+                    ))
+                    ) : (
+                    <p className="parameter-limit">(No parameters added yet)</p>
+                    )}
                 </div>
-                <div className="parameters-list">
-                  {defaultParameters.map((param) => (
-                    <motion.div 
-                      key={param.id} 
-                      className="parameter-tag"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {param.name}
-                      <button
-                        type="button"
-                        className="remove-btn"
-                        onClick={() => removeDefaultParameter(param.id)}
-                      >
-                        ×
-                      </button>
-                    </motion.div>
-                  ))}
-                </div>
+                </div> */}
+                
               </div>
             </div>
-
+            
+                <div className="form-group">
+                  {/* <label htmlFor="defaultParams">Default Parameters</label> */}
+                  <div className="parameters-list">
+                    <label>(Default parameters to evaluate are listed below. You can remove or add your own in the Add Parameters section)</label>
+                    {defaultParameters.map((param) => (
+                      <motion.div 
+                        key={param.id} 
+                        className="parameter-tag"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {param.name}
+                        <button
+                          type="button"
+                          className="remove-btn"
+                          onClick={() => removeDefaultParameter(param.id)}
+                        >
+                          ×
+                        </button>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
             <AnimatePresence>
               {error && (
                 <motion.div 
@@ -344,4 +439,4 @@ function App() {
   );
 }
 
-export default App;
+export default UploadProblem;
