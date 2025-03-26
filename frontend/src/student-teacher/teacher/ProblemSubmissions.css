@@ -1020,3 +1020,35 @@ th:hover .sort-icon {
   opacity: 1;
 }
 
+.summary-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary-toggle-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.summary-row {
+  background-color: #f9f9f9;
+}
+
+.summary-content {
+  padding: 10px;
+  border-left: 3px solid #007bff;
+}
+
+.summary-content h4 {
+  margin-top: 0;
+  color: #333;
+}
+
+.summary-content p {
+  margin-bottom: 0;
+  color: #666;
+}

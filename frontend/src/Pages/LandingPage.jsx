@@ -60,34 +60,34 @@ const LandingPage = () => {
         <h2>Platform Features</h2>
         <div className="features-grid">
           <div className="feature-card">
-            <div className="icon">📚</div>
-            <h3>Resource Sharing</h3>
-            <p>Easily share educational materials, presentations, and study guides in one centralized location.</p>
+            <div className="icon">🌍</div>
+            <h3>Multilingual Support</h3>
+            <p>Analyse submissions effortlessly in multiple languages with seamless translations.</p>
           </div>
           <div className="feature-card">
-            <div className="icon">📝</div>
-            <h3>Assignment Management</h3>
-            <p>Create, distribute, and grade assignments with our intuitive assignment workflow system.</p>
+            <div className="icon">🎥</div>
+            <h3>Video Context Extraction</h3>
+            <p>Go beyond audio and extract meaningful insights from videos.</p>
           </div>
           <div className="feature-card">
-            <div className="icon">💬</div>
-            <h3>Seamless Communication</h3>
-            <p>Connect through direct messaging, discussion forums, and virtual classroom sessions.</p>
+            <div className="icon"> ✍️</div>
+            <h3>Handwritten Character Recognition</h3>
+            <p>Convert handwritten text into digital form with precision.</p>
           </div>
           <div className="feature-card">
-            <div className="icon">📊</div>
-            <h3>Progress Tracking</h3>
-            <p>Monitor learning progress with detailed analytics and personalized dashboards.</p>
+            <div className="icon">📨</div>
+            <h3>Updating Emails</h3>
+            <p>Automate and enhance your email management for efficiency.</p>
           </div>
           <div className="feature-card">
-            <div className="icon">🔔</div>
-            <h3>Smart Notifications</h3>
-            <p>Stay updated with important deadlines, announcements, and activity alerts.</p>
+            <div className="icon">🤖</div>
+            <h3>AI Chatbot</h3>
+            <p>Get instant, intelligent responses with our AI-powered chatbot.</p>
           </div>
           <div className="feature-card">
-            <div className="icon">🔒</div>
-            <h3>Secure Environment</h3>
-            <p>Enjoy peace of mind with our robust security measures and privacy controls.</p>
+            <div className="icon">🎓</div>
+            <h3>Personalized Feedback for Students</h3>
+            <p> Receive tailored insights to improve learning outcomes.</p>
           </div>
         </div>
       </section></Element>

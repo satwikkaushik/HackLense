@@ -508,6 +508,7 @@ const Dashboard = ({ addNotification }) => {
                   </div>
                   <div className="assignment-details">
                     <p className="description">{assignment.description}</p>
+                    <p className="description"><h4> </h4> </p>
                     <div className="assignment-meta">
                       <span
                         className="subject"

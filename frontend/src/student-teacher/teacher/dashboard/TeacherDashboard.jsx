@@ -429,6 +429,7 @@
 
 // export default TeacherDashboard;
 
+
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./TeacherDashboard.css";
@@ -452,14 +453,6 @@ const TeacherDashboard = ({ addNotification }) => {
   const navigate = useNavigate();
   const { problems, loading } = useProblems();
 
-  // Helper: Check if problem is overdue
-  const isOverdue = (deadline) => {
-    if (!deadline) return false;
-    const dueDate = new Date(deadline);
-    if (isNaN(dueDate.getTime())) return false;
-    return dueDate < new Date();
-  };
-
   // Process problems with additional metadata
   const processedProblems = useMemo(() => {
     return problems.map((problem, index) => ({
@@ -467,7 +460,12 @@ const TeacherDashboard = ({ addNotification }) => {
       title: problem.title,
       description: problem.description,
       subject: problem.subject || "Problem",
-      status: isOverdue(problem.endDate) ? "graded" : "active",
+      status:
+        problem.submissions > 0
+          ? problem.submissions === problem.totalStudents
+            ? "completed"
+            : "active"
+          : "active",
       deadline: problem.endDate,
       color: defaultColors[index % defaultColors.length],
       submissionCount: problem.submissions || 0,
@@ -526,11 +524,11 @@ const TeacherDashboard = ({ addNotification }) => {
   const stats = {
     total: processedProblems.length,
     active: processedProblems.filter((p) => p.status === "active").length,
-    /*     completed: processedProblems.filter((p) => p.status === "completed").length, */
+/*     completed: processedProblems.filter((p) => p.status === "completed").length, */
     graded: processedProblems.filter((p) => p.status === "graded").length,
   };
 
-  /*   // Compute completion percentage
+/*   // Compute completion percentage
   const completionPercentage =
     processedProblems.length > 0
       ? Math.round((stats.completed / stats.total) * 100)
@@ -560,6 +558,14 @@ const TeacherDashboard = ({ addNotification }) => {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
+  // Helper: Check if problem is overdue
+  const isOverdue = (deadline) => {
+    if (!deadline) return false;
+    const dueDate = new Date(deadline);
+    if (isNaN(dueDate.getTime())) return false;
+    return dueDate < new Date();
+  };
+
   // Get unique subjects for filtering
   const subjects = useMemo(() => {
     const subjectSet = new Set(problems.map((p) => p.subject).filter(Boolean));
@@ -578,15 +584,12 @@ const TeacherDashboard = ({ addNotification }) => {
       addNotification({ message: "Viewing problem details", type: "info" });
   };
 
-  if (loading)
-    return (
-      <div class="loading-overlay">
-        <div class="loading-container">
-          <div class="loading-spinner"></div>
-          <div class="loading-text">Loading...</div>
-        </div>
-      </div>
-    );
+  if (loading) return <div class="loading-overlay">
+  <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading...</div>
+  </div>
+</div>;
 
   return (
     <>
@@ -598,8 +601,7 @@ const TeacherDashboard = ({ addNotification }) => {
               <div className="header-left">
                 <h1>Teacher Dashboard</h1>
                 <p className="subtitle">
-                  Welcome back! You've created {stats.total} problems statements
-                  for your students.
+                Welcome back! You've created {stats.total} problems statements for your students.
                 </p>
               </div>
               <div className="header-right">
@@ -726,7 +728,7 @@ const TeacherDashboard = ({ addNotification }) => {
                     key={problem.id}
                     className={`assignment-card fade-in ${problem.status} ${
                       isOverdue(problem.deadline) && problem.status === "active"
-                        ? /* "overdue" */ "graded"
+                        ? /* "overdue" */"graded"
                         : ""
                     } `}
                     style={{
@@ -743,9 +745,9 @@ const TeacherDashboard = ({ addNotification }) => {
                         <div className="status-badge">
                           {problem.status === "active"
                             ? "Active"
-                            : /* : problem.status === "completed"
+                            /* : problem.status === "completed"
                             ? "Completed" */
-                              "Graded"}
+                            : "Graded"}
                         </div>
                       </div>
                     </div>
@@ -762,7 +764,7 @@ const TeacherDashboard = ({ addNotification }) => {
                           className={`deadline ${
                             isOverdue(problem.deadline) &&
                             problem.status === "active"
-                              ? /* "overdue" */ "graded"
+                              ? /* "overdue" */"graded"
                               : ""
                           }`}
                         >
@@ -786,9 +788,11 @@ const TeacherDashboard = ({ addNotification }) => {
 
                       <div className="submission-stats">
                         <div className="submission-header">
-                          <h4>Student Submissions: </h4>
+                          <h4>Results & Submissions: </h4>
+                          
+                          
                         </div>
-                        <div className="submission-progress">
+                         <div className="submission-progress">
                           {/* <div
                             className="progress-bar"
                             style={{
@@ -800,13 +804,12 @@ const TeacherDashboard = ({ addNotification }) => {
                               backgroundColor: problem.color,
                             }}
                           ></div> */}
-                          <div className="submission-dots">
-                            <span className="submission-count">
-                              <h4>{problem.submissionCount} Submitted</h4>
-                            </span>
+                            <div className="submission-dots">
+                            
+                            {/* <span className="submission-count"><h4>{problem.submissionCount} Submitted</h4></span> */}
                           </div>
-                        </div>
-                        <br></br>
+
+                        </div><br></br>
                         {/* <p className="submission-status">
                           <i>Results will be available once the deadline ends!</i>
                         </p> */}
@@ -821,13 +824,11 @@ const TeacherDashboard = ({ addNotification }) => {
                         </button>
                       ) : (
                         <p className="submission-status">
-                          <i>
-                            Results will be available once the deadline ends!
-                          </i>
+                          <i>Results will be available once the deadline ends!</i>
                         </p>
                       )}
 
-                      {/* {problem.status === "active" && (
+                        {/* {problem.status === "active" && (
                           <button
                             className="status-button pause"
                             onClick={() => {
@@ -841,8 +842,8 @@ const TeacherDashboard = ({ addNotification }) => {
                             Pause
                           </button>
                         )} */}
+                      </div>
                     </div>
-                  </div>
                   // </div>
                 ))
               ) : (
