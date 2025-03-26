@@ -34,7 +34,7 @@ app.use(validateAuthToken());
 app.use("/account", accountRoutes);
 app.use("/event", eventRoutes);
 app.use("/submissions", submissionRoutes);
-app.use("/notification", notificationRoutes);
+// app.use("/notification", notificationRoutes);
 
 // 404 Not Found handler
 app.all("*", (req, res) => {

@@ -7,7 +7,9 @@ import {
   generateTestCasesService,
 } from "@/services/llmServices";
 import Submission from "@/schema/submissions";
+import { sendEmail as sendEmailService } from "@/controllers/notification";
 import { AuthRequest } from "@/shared/interfaces";
+import User from "@/schema/users";
 
 export async function createEvent(req: AuthRequest, res: Response) {
   const event: EventInterface = req.body;
@@ -56,6 +58,13 @@ export async function createEvent(req: AuthRequest, res: Response) {
       // generating test cases if event is coding
       await generateTestCasesService("" + newEvent._id);
     }
+
+    // send email to all users
+    await sendEmail(
+      "" + newEvent._id,
+      newEvent.title,
+      newEvent.description || "New Problem Uploaded"
+    );
 
     res.status(201).json({ message: "Event created successfully" });
     return;
@@ -190,5 +199,35 @@ export async function viewStanding(req: Request, res: Response) {
     res.status(200).json({ event: event, standings: filteredStandings });
   } catch (error) {
     res.status(500).json({ message: error });
+  }
+}
+
+async function sendEmail(
+  eventId: string,
+  subject: string,
+  description: string
+) {
+  try {
+    const users = await User.find({ role: "user" }, "email");
+    const emailAddresses = users.map((user) => user.email);
+
+    const validEmailAddresses = emailAddresses.filter(
+      (email) => !email.endsWith("@e.com")
+    );
+
+    console.log("Sending email to:", validEmailAddresses);
+
+    for (let i = 0; i < validEmailAddresses.length; i++) {
+      await sendEmailService({
+        email: validEmailAddresses[i],
+        subject: subject,
+        text: description,
+      });
+    }
+
+    return Promise.resolve("Email sent successfully");
+  } catch (error) {
+    console.error("Error in sending email:", error);
+    return Promise.reject("Error in sending email");
   }
 }

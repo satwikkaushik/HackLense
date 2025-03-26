@@ -3,6 +3,6 @@ import { sendEmail } from "@/controllers/notification";
 
 const router = express.Router();
 
-router.post("/send-email", sendEmail);
+// router.post("/send-email", sendEmail);
 
 export default router;

@@ -1,46 +1,42 @@
-import { Request, Response } from "express";
 import { sendEmail as sendEmailService } from "@/services/email";
 import EmailLog from "@/schema/emailLog";
 import dotenv from "dotenv";
+import { Email as EmailInterface } from "@/types/email";
 
 dotenv.config();
 
-export async function sendEmail(req: Request, res: Response) {
+export async function sendEmail(params: EmailInterface) {
   try {
-    const { email, subject, text } = req.body;
-    if (!email || !subject || !text) {
-      res.status(400).json({ message: "Please provide all the fields" });
-      return;
+    if (!params.email || !params.subject || !params.text) {
+      throw new Error("Missing Fields");
     }
 
     let status: "sent" | "failed" = "sent";
     let errorMessage: string | null = null;
 
     try {
-      await sendEmailService(email, subject, text);
+      await sendEmailService(params.email, params.subject, params.text);
     } catch (error: any) {
-      console.error("❌ Email sending failed:", error);
+      console.error("Email sending failed:", error);
       status = "failed";
       errorMessage = error.message || "Unknown error";
     }
 
     await EmailLog.create({
-      userEmail: email,
-      subject,
-      text,
-      status,
+      userEmail: params.email,
+      subject: params.subject,
+      text: params.text,
+      status: status,
       error: errorMessage,
     });
+
     if (status === "failed") {
-      res.status(500).json({ message: "Failed to send email" });
-      return;
+      throw new Error("Email sending failed");
     }
 
-    res.status(200).json({ message: "Email sent successfully" });
-    return;
+    return Promise.resolve("Email sent successfully");
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal server error in sending email" });
-    return;
+    console.log("Error in Email: ", error);
+    return Promise.reject(error);
   }
 }
