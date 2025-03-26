@@ -141,29 +141,24 @@ export async function updateEventSubmission(eventId: string): Promise<String> {
   }
 }
 
-export async function getFinalStandings(req: Request, res: Response) {
+async function getFinalStandings(eventId: string) {
   try {
-    const { eventId } = req.params;
-
     const event = await Event.findById(eventId);
     if (!eventId) {
-      res.status(400).json({ message: "Event ID is required" });
-      return;
+      throw new Error("Missing Event Id");
     }
 
     if (!event) {
-      res.status(404).json({ message: "Event not found" });
-      return;
+      throw new Error("Event not found");
     }
 
     if (event.submissions === 0) {
-      res.status(200).json([]);
-      return;
+      throw new Error("No submissions yet");
     }
 
     const submissions = await Submission.find({ event: event._id }).populate(
       "student",
-      "name email"
+      "name finalScore"
     );
 
     const finalStandings = submissions
@@ -175,12 +170,27 @@ export async function getFinalStandings(req: Request, res: Response) {
           a._id.toString().localeCompare(b._id.toString()) // Tie-breaker: Random
       );
 
-    res.status(200).json(finalStandings || []);
-    return;
+    return Promise.resolve(finalStandings);
   } catch (error) {
-    res.status(500).json({
-      message: "Internal server error in fetching final standings",
-    });
-    return;
+    return Promise.reject(error);
+  }
+}
+
+export async function viewStanding(req: Request, res: Response) {
+  const eventId = req.params.eventId;
+
+  try {
+    const finalStandings = await getFinalStandings(eventId);
+    const event = await Event.findById(eventId);
+    
+    const filteredStandings = finalStandings.map((standing: any) => ({
+      student: standing.student.name,
+      finalScore: standing.finalScore,
+      summary: standing.summary,
+    }));
+
+    res.status(200).json({ event: event, standings: filteredStandings });
+  } catch (error) {
+    res.status(500).json({ message: error });
   }
 }
