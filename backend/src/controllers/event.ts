@@ -2,22 +2,14 @@ import { Request, Response } from "express";
 import Event from "@/schema/events";
 import { Event as EventInterface } from "@/types/event";
 import { findUserByEmail } from "@/services/dbService";
-import { UserInTransit } from "@/types/user";
 import {
   getEventKeywordsService,
   generateTestCasesService,
 } from "@/services/llmServices";
 import Submission from "@/schema/submissions";
+import { AuthRequest } from "@/shared/interfaces";
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: UserInTransit;
-    }
-  }
-}
-
-export async function createEvent(req: Request, res: Response) {
+export async function createEvent(req: AuthRequest, res: Response) {
   const event: EventInterface = req.body;
 
   if (
@@ -39,22 +31,21 @@ export async function createEvent(req: Request, res: Response) {
   try {
     // Fetching createdBy from the cookie
     const createdBy = req.user?.email;
-    if (!createdBy || createdBy === null) {
+    if (!createdBy) {
       res.status(404).json({ message: "User not found" });
       return;
     }
 
     const user = await findUserByEmail(createdBy);
-
-    if (!user || user === null) {
+    if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
     }
 
-    event.createdBy = user._id;
+    event.createdBy = user._id.toString();
 
     const newEvent = await Event.create(event);
-    if (!newEvent || newEvent === null) {
+    if (!newEvent) {
       throw new Error("Error in event creation");
     }
 
@@ -90,11 +81,11 @@ export async function getEvents(req: Request, res: Response) {
   }
 }
 
-export async function getEventTeacherSpecific(req: Request, res: Response) {
+export async function getEventTeacherSpecific(req: AuthRequest, res: Response) {
   try {
     // Fetching createdBy from the cookie
     const createdBy = req.user?.email;
-    if (!createdBy || createdBy === null) {
+    if (!createdBy) {
       console.log("User not found");
       res.status(404).json({ message: "User not found" });
       return;
@@ -102,7 +93,7 @@ export async function getEventTeacherSpecific(req: Request, res: Response) {
 
     const user = await findUserByEmail(createdBy);
 
-    if (!user || user === null) {
+    if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
     }
@@ -128,7 +119,7 @@ export async function updateEventSubmission(eventId: string): Promise<String> {
 
   try {
     const event = await Event.findById(eventId);
-    if (!event || event === null) {
+    if (!event) {
       return Promise.reject("Event not found");
     }
 
@@ -182,12 +173,19 @@ export async function viewStanding(req: Request, res: Response) {
   try {
     const finalStandings = await getFinalStandings(eventId);
     const event = await Event.findById(eventId);
-    
+
+    if (!event) {
+      throw new Error("Event not found");
+    }
+
     const filteredStandings = finalStandings.map((standing: any) => ({
-      student: standing.student.name,
-      finalScore: standing.finalScore,
-      summary: standing.summary,
+      student: standing.student.name, // name
+      defaultParamsScore: standing.defaultParamsScore / 7, // default param score (avg)
+      paramsWise: standing.paramsWise, // user defined parameter wise score
+      finalScore: standing.finalScore, // default param score + user defined param score
+      summary: standing.summary, // summary of the submission
     }));
+    // userParams: event.parameters
 
     res.status(200).json({ event: event, standings: filteredStandings });
   } catch (error) {

@@ -3,34 +3,15 @@ import mongoose from "mongoose";
 import { CreateUser, LoginUser } from "@/types/user";
 
 export async function signupService(details: CreateUser) {
-  try {
-    const user = await User.create(details);
-    return Promise.resolve(user);
-  } catch (error) {
-    return Promise.reject(error);
-  }
+  return User.create(details);
 }
 
 export async function loginService(details: LoginUser) {
-  try {
-    const user = await User.findOne(details);
-    return Promise.resolve(user);
-  } catch (error) {
-    return Promise.reject(error);
-  }
+  return User.findOne(details);
 }
 
 export async function findUserByEmail(email: string) {
-  try {
-    const user: CreateUser | null = await User.findOne({ email: email });
-    if (user !== null) {
-      return Promise.resolve(user);
-    } else {
-      return Promise.resolve(null);
-    }
-  } catch (error) {
-    return Promise.reject(error);
-  }
+  return User.findOne({ email });
 }
 
 export async function connectDB(URI: string) {

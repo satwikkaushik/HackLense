@@ -22,13 +22,13 @@ const Dashboard = ({ addNotification }) => {
 
   // Load submitted assignments from local storage on component mount
   useEffect(() => {
-    const storedSubmissions = localStorage.getItem('submittedAssignments');
-    const storedStatuses = localStorage.getItem('assignmentStatuses');
-    
+    const storedSubmissions = localStorage.getItem("submittedAssignments");
+    const storedStatuses = localStorage.getItem("assignmentStatuses");
+
     if (storedSubmissions) {
       setSubmittedAssignments(JSON.parse(storedSubmissions));
     }
-    
+
     if (storedStatuses) {
       setAssignmentStatuses(JSON.parse(storedStatuses));
     }
@@ -104,7 +104,9 @@ const Dashboard = ({ addNotification }) => {
     const submitted = processedAssignments.filter(
       (a) => a.status === "submitted" || a.status === "graded"
     ).length;
-    const pending = processedAssignments.filter((a) => a.status === "pending").length;
+    const pending = processedAssignments.filter(
+      (a) => a.status === "pending"
+    ).length;
     const overdue = processedAssignments.filter(
       (a) => a.status === "pending" && new Date(a.deadline) < new Date()
     ).length;
@@ -277,7 +279,7 @@ const Dashboard = ({ addNotification }) => {
         };
         setSubmittedAssignments(newSubmittedAssignments);
         localStorage.setItem(
-          'submittedAssignments', 
+          "submittedAssignments",
           JSON.stringify(newSubmittedAssignments)
         );
 
@@ -288,7 +290,7 @@ const Dashboard = ({ addNotification }) => {
         };
         setAssignmentStatuses(newAssignmentStatuses);
         localStorage.setItem(
-          'assignmentStatuses', 
+          "assignmentStatuses",
           JSON.stringify(newAssignmentStatuses)
         );
 
@@ -327,12 +329,15 @@ const Dashboard = ({ addNotification }) => {
     return ["all", ...subjectSet];
   }, [assignments]);
 
-  if (loading) return <div class="loading-overlay">
-  <div class="loading-container">
-      <div class="loading-spinner"></div>
-      <div class="loading-text">Loading...</div>
-  </div>
-</div>;
+  if (loading)
+    return (
+      <div class="loading-overlay">
+        <div class="loading-container">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Loading...</div>
+        </div>
+      </div>
+    );
 
   return (
     <div className="dashboard-container">
@@ -402,7 +407,9 @@ const Dashboard = ({ addNotification }) => {
               {/* View controls, search box, and filters remain the same */}
               <div className="view-controls">
                 <button
-                  className={`view-mode-btn ${viewMode === "grid" ? "active" : ""}`}
+                  className={`view-mode-btn ${
+                    viewMode === "grid" ? "active" : ""
+                  }`}
                   onClick={() => setViewMode("grid")}
                   title="Grid View"
                 >
@@ -411,7 +418,9 @@ const Dashboard = ({ addNotification }) => {
                   </div>
                 </button>
                 <button
-                  className={`view-mode-btn ${viewMode === "list" ? "active" : ""}`}
+                  className={`view-mode-btn ${
+                    viewMode === "list" ? "active" : ""
+                  }`}
                   onClick={() => setViewMode("list")}
                   title="List View"
                 >
@@ -472,8 +481,9 @@ const Dashboard = ({ addNotification }) => {
                 <div
                   key={assignment.id}
                   className={`assignment-card fade-in ${assignment.status} ${
-                    isOverdue(assignment.deadline) && assignment.status === "pending"
-                      ? "overdue"
+                    isOverdue(assignment.deadline) &&
+                    assignment.status === "pending"
+                      ? ""
                       : ""
                   } `}
                   style={{
@@ -571,7 +581,9 @@ const Dashboard = ({ addNotification }) => {
                                   </div>
                                 ) : (
                                   <>
-                                    <p>Drop files here or select file to upload</p>
+                                    <p>
+                                      Drop files here or select file to upload
+                                    </p>
                                     <div className="file-types">
                                       <span title="Text Documents">📃</span>
                                       <span title="PDF Files">📄</span>
@@ -615,10 +627,14 @@ const Dashboard = ({ addNotification }) => {
                           ) : (
                             <div className="submitted-section">
                               <div className="submission-info">
-                                <span className="submitted-badge">✅ Submitted</span>
+                                <span className="submitted-badge">
+                                  ✅ Submitted
+                                </span>
                                 <p className="submit">
                                   File Type:{" "}
-                                  {uploadedFiles[assignment.id]?.fileType.toUpperCase()}
+                                  {uploadedFiles[
+                                    assignment.id
+                                  ]?.fileType.toUpperCase()}
                                   <br />
                                   Language:{" "}
                                   {uploadedFiles[assignment.id]?.fileLanguage}

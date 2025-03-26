@@ -112,3 +112,63 @@ class GenericEvaluator:
             return int(response)
         except ValueError:
             print(ValueError)
+
+    def priority(self, n):
+        if(n==1):
+            return [1]
+        if(n==2):
+            return [0.6,0.4]
+        if(n==3):
+            return [0.5,0.3,0.2]
+        if(n==4):
+            return [0.4,0.3,0.2,0.1]
+        if(n==5):
+            return [0.3,0.25,0.2,0.15,0.1]
+
+    def scoreParam(self, s, ps, metric):
+
+        prompt = f"""this is my solution {s} for problem statement {ps}. Evaluate it on the basis of {metric} and give me score out of 10. just give a single digit nothing else needed.Give scoring assuming the submission is made by a 12th grade student."""
+        result = self.generate(prompt)
+
+        return result
+    
+    def scoreDefaultParam(self, s, ps, metric):
+
+        prompt = f"""this is my solution {s} for problem statement {ps}. Evaluate it on the basis of all these parameters {metric} and give me a final score out of 10. just give a single digit nothing else needed. Give scoring assuming the submission is made by a 12th grade student."""
+        result = self.generate(prompt)
+
+        return result
+
+    def evaluateInnovation(self, params):
+        scores = []
+
+        s = params.get("solution")
+        ps = params.get("problem_statement")
+        metrics = params.get("metrices")
+        defaultParams = params.get("defaultParams")
+
+        for metric in metrics:
+            result = self.scoreParam(s, ps, metric)
+            scores.append(result)
+        
+        n = len(scores)
+        multiplier = []
+
+        if(n==1):
+            multiplier = [1]
+        if(n==2):
+            multiplier = [0.6,0.4]
+        if(n==3):
+            multiplier = [0.5,0.3,0.2]
+        if(n==4):
+            multiplier = [0.4,0.3,0.2,0.1]
+        if(n==5):
+            multiplier = [0.3,0.25,0.2,0.15,0.1]
+        
+        # Convert scores to integers and multiply with corresponding multiplier values
+        weighted_scores = [int(score) * multiplier[i] for i, score in enumerate(scores)]
+        total_score = sum(weighted_scores)
+
+        defaultParamsScore = self.scoreDefaultParam(s, ps, defaultParams)
+
+        return {"paramsWise": scores, "paramsWise_normalized": weighted_scores, "paramsScore": total_score, "defaultParamsScore": defaultParamsScore}

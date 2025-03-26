@@ -11,18 +11,11 @@ import {
   getSubmissionSummaryService,
   submissionExtractDataService,
   evaluateMathsScienceService,
-  translationService,
   evaluateCodingService,
   evaluateInnovation,
+  evaluateLLMService,
 } from "@/services/llmServices";
-
-declare global {
-  namespace Express {
-    interface Request {
-      user?: UserInTransit;
-    }
-  }
-}
+import { AuthRequest } from "@/shared/interfaces";
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -34,7 +27,7 @@ const upload = multer({
   }),
 }).single("file");
 
-export async function createSubmission(req: Request, res: Response) {
+export async function createSubmission(req: AuthRequest, res: Response) {
   upload(req, res, async (err) => {
     if (err) {
       res.status(500).json({ message: "File upload error" });
@@ -55,20 +48,20 @@ export async function createSubmission(req: Request, res: Response) {
     try {
       // validate event
       const event = await Event.findById(submission.event);
-      if (!event || event === null) {
+      if (!event) {
         res.status(404).json({ message: "Event not found" });
         return;
       }
 
       // getting student from cookie
-      const userEmail = req.user?.email;
-      if (!userEmail || userEmail === null) {
+      const userEmail = (req.user)?.email;
+      if (!userEmail) {
         res.status(404).json({ message: "User not found" });
         return;
       }
 
       const user = await findUserByEmail(userEmail);
-      if (!user || user === null) {
+      if (!user) {
         res.status(404).json({ message: "User not found" });
         return;
       }
@@ -96,7 +89,7 @@ export async function createSubmission(req: Request, res: Response) {
       } else if (event.subject === "coding") {
         await evaluateCodingService("" + newSubmission._id);
       } else if (event.subject === "innovation") {
-        await evaluateInnovation("" + newSubmission._id);
+        await evaluateLLMService("" + newSubmission._id);
       }
 
       return;

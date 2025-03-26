@@ -5,7 +5,7 @@ import {
   findUserByEmail,
 } from "@/services/dbService";
 import { CreateUser, LoginUser, UserInTransit } from "@/types/user";
-import { hashPassword, comparePassword } from "@/services/passwordService";
+import { hashPassword, comparePassword } from "@/utils/bcyrpt";
 import { generateToken } from "@/services/authService";
 import { generateUserInTransit } from "@/shared/generateInterfaces";
 
@@ -33,9 +33,6 @@ export async function accountSignup(req: Request, res: Response) {
 
     // hashing password
     const hashedPassword = await hashPassword(details.password);
-    if (!hashedPassword) {
-      throw new Error("Password hashing failed");
-    }
 
     details.password = hashedPassword;
 
@@ -72,7 +69,7 @@ export async function accountLogin(req: Request, res: Response) {
   try {
     // checking if user exists
     const user = await findUserByEmail(details.email);
-    if (user === null || user.role !== details.role) {
+    if (!user || user.role !== details.role) {
       res.status(401).json({ message: "Invalid Credentials" });
       return;
     }
@@ -80,11 +77,6 @@ export async function accountLogin(req: Request, res: Response) {
     // comparing passwords
     const match = await comparePassword(details.password, user.password);
     if (!match) {
-      res.status(401).json({ message: "Invalid Credentials" });
-      return;
-    }
-
-    if (user === null) {
       res.status(401).json({ message: "Invalid Credentials" });
       return;
     }

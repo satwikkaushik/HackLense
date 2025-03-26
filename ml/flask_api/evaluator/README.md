@@ -26,15 +26,8 @@
 <h2>Idea Evaluation (Scoring Student Submissions)</h2>
 <ol>
   <li><strong>Import</strong> <code>main.py</code> in your script.</li>
-  <li><strong>Prepare Input</strong> for the <code>Evaluator</code> class. Input should be a dictionary with semantic descriptions for different submission formats:</li>
-  <pre><code>
-semantic_descriptions = {
-  'text': *Semantic description of text*,
-  'video': *Semantic description of video*,
-  'audio': *Semantic description of audio*,
-  'image': *Semantic description of image*
-}
-  </code></pre>
+  <li><strong>Prepare Input</strong> for the <code>Evaluator</code> class. Input should be a string with semantic descriptions for any of a submission formats:</li>
+  <code>semantic_descriptions = *Sementic Desription*</code>
   <li><strong>Create</strong> an <code>Evaluator</code> object and pass the input:</li>
   <pre><code>evaluator = Evaluator(semantic_descriptions)</code></pre>
   <li><strong>Run</strong> the evaluation by calling the <code>run()</code> method:</li>

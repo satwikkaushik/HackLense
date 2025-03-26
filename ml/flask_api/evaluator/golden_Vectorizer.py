@@ -8,7 +8,8 @@ class GoldenVectorizer:
     self.db = DataBase()
   
   def preproc_words(self, words):
-    return [words.replace(',', '')]
+    if isinstance(words, list): return words
+    elif isinstance(words, str): return [words.replace(',', '')]
 
   def TF_IDF(self, corpus):
     return self.vectorizer.fit_transform(corpus)

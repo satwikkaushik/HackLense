@@ -5,7 +5,6 @@ import pickle
 import os
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
-
 class DataBase:
   def __init__(self):
     pass
@@ -20,6 +19,12 @@ class DataBase:
     data = json.load(f)
     f.close()
     return data.get(parameter)
+
+  def getPriorityList(self):
+    f = open(os.path.join(base_dir, "database", "priority.json"), 'r')
+    data = json.load(f)
+    f.close()
+    return data
 
   def storeModel(self, name, model, matrix):
     # golden matrix
