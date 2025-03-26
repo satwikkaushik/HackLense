@@ -7,7 +7,14 @@ import { findUserByEmail } from "@/services/dbService";
 import multer from "multer";
 import path from "path";
 import { UserInTransit } from "@/types/user";
-import axios from "axios";
+import {
+  getSubmissionSummaryService,
+  submissionExtractDataService,
+  evaluateMathsScienceService,
+  translationService,
+  evaluateCodingService,
+  evaluateInnovation,
+} from "@/services/llmServices";
 
 declare global {
   namespace Express {
@@ -47,8 +54,8 @@ export async function createSubmission(req: Request, res: Response) {
 
     try {
       // validate event
-      const eventExists = await Event.findById(submission.event);
-      if (!eventExists || eventExists === null) {
+      const event = await Event.findById(submission.event);
+      if (!event || event === null) {
         res.status(404).json({ message: "Event not found" });
         return;
       }
@@ -76,15 +83,25 @@ export async function createSubmission(req: Request, res: Response) {
       if (!newSubmission || !updatedEvent) {
         throw new Error("Error in creating submission");
       }
-      res.status(201).json(newSubmission);
 
-      const extractedData = await extractData(
+      await submissionExtractDataService(
         "" + newSubmission._id,
         submission.fileURL
       );
 
+      await getSubmissionSummaryService("" + newSubmission._id);
+
+      if (event.subject === "mathematics" || event.subject === "science") {
+        await evaluateMathsScienceService("" + newSubmission._id);
+      } else if (event.subject === "coding") {
+        await evaluateCodingService("" + newSubmission._id);
+      } else if (event.subject === "innovation") {
+        await evaluateInnovation("" + newSubmission._id);
+      }
+
       return;
     } catch (error) {
+      console.log("Error in creating submission:", error);
       res.status(500).json({
         message: "Error in creating submission",
       });
@@ -102,30 +119,4 @@ export async function getSubmissions(req: Request, res: Response) {
     res.status(404).json({ message: "Error in fetching submissions" });
     return;
   }
-}
-
-async function extractData(submissionId: string, fileURL: string) {
-  const FLASK_API = "http://localhost:3001/extract";
-
-  try {
-    const response = await axios.post<{ text?: string }>(FLASK_API, {
-      fileURI: fileURL,
-    });
-
-    if (response.status === 200 && response.data !== null) {
-      const submission = await Submission.findById(submissionId);
-      if (!submission || submission === null) {
-        console.log("Submission not found");
-        return false;
-      }
-
-      submission.extractedContent = response.data.text || "";
-      await submission.save();
-      return true;
-    }
-  } catch (error) {
-    console.log("Error in extracting data:", error);
-    return false;
-  }
-  return;
 }

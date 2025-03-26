@@ -14,7 +14,7 @@
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -25,7 +25,7 @@ body {
   background-color: var(--color-dark-bg);
   color: var(--color-text);
   line-height: 1.6;
-}
+} */
 
 .contact-page-container {
   max-width: 1200px;

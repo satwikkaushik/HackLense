@@ -6,6 +6,7 @@ export interface Submission {
   _id: string;
   fileURL: string;
   extractedContent?: string;
+  summary?: string;
   finalScore?: number;
   submittedAt?: Date;
 }

@@ -102,8 +102,8 @@ const LandingPage = () => {
         <Link to="./login-page"><p className='already-login'><u>Already have an account? Login</u></p></Link>
       </section>
       
-      <footer>
-        <p>&copy; 2025 HackLense. All rights reserved.</p>
+      <footer className='landing-footer'>
+        <p>&copy; 2025 VisionGrade. All rights reserved.</p>
       </footer>
     </div>
   );

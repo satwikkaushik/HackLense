@@ -21,6 +21,7 @@
     "@types/mongoose": "^5.11.96",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",
+    "@types/nodemailer": "^6.4.17",
     "@types/nodemon": "^1.19.6",
     "nodemon": "^3.1.9",
     "ts-node-dev": "^2.0.0",
@@ -37,6 +38,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.2",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.2"
+    "multer": "^1.4.5-lts.2",
+    "nodemailer": "^6.10.0"
   }
 }

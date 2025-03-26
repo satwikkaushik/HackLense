@@ -202,10 +202,10 @@ const Resource = () => {
 
   if (loading) {
     return (
-      <div className="top-achievers-container">
-        <div className="loading-spinner">
-          <div className="spinner"></div>
-          <p>Loading top achievers...</p>
+      <div class="loading-overlay">
+        <div class="loading-container">
+          <div class="loading-spinner"></div>
+            <div class="loading-text">Loading Top Achievers...</div>
         </div>
       </div>
     )

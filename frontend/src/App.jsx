@@ -25,8 +25,8 @@ function App() {
         <Route path="/signup-page" element={<SignUpPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/upload-problem" element={<UploadProblem />}></Route>
-        <Route path="submissions" element={<ProblemSubmissions />} />
-        <Route path="resources" element={<Resource />} />
+        <Route path="/submissions" element={<ProblemSubmissions />} />
+        <Route path="/resources" element={<Resource />} />
       </Routes>
       <ChatbotButton />
     </>

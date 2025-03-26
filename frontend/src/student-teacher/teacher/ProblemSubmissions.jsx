@@ -242,32 +242,12 @@ const ProblemSubmissions = ({ problemId }) => {
     const gradientString = `conic-gradient(${gradientStops.join(', ')})`;
   
     return (
-      <div className="file-type-distribution">
-        <div 
-          className="ring-pie-chart" 
-          style={{ 
-            background: gradientString,
-            '--total-submissions': total 
-          }}
-        ></div>
-        <div className="pie-chart-legend">
-          {fileTypesArray.map(([type, count], index) => {
-            const color = `hsl(${index * 120}, 70%, 50%)`;
-            const percentage = ((count / total) * 100).toFixed(1);
-            return (
-              <div 
-                key={type} 
-                className="legend-item"
-                data-count={`${count} submissions`}
-              >
-                <span 
-                  className="legend-color" 
-                  style={{ backgroundColor: color }}
-                ></span>
-                {type.toUpperCase()}: {count} ({percentage}%)
-              </div>
-            );
-          })}
+
+      <div class="loading-overlay">
+        <div class="loading-container">
+          <div class="loading-spinner"></div>
+            <div class="loading-text">Loading...</div>
+
         </div>
       </div>
     );

@@ -327,7 +327,12 @@ const Dashboard = ({ addNotification }) => {
     return ["all", ...subjectSet];
   }, [assignments]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div class="loading-overlay">
+  <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading...</div>
+  </div>
+</div>;
 
   return (
     <div className="dashboard-container">

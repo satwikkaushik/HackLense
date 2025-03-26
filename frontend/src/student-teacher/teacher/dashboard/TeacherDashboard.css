@@ -1,5 +1,5 @@
-/* TeacherDashboard.css */
-:root {
+  /* TeacherDashboard.css */
+  :root {
     --primary-color: #3E5C76;
     --secondary-color: #748CAB;
     --success-color: #4CAF50;
@@ -14,7 +14,7 @@
     --transition-standard: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     --transition-bounce: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   /* Base Styles */
   .dashboard-container {
     width: 100vw;
@@ -25,13 +25,13 @@
     border-radius: var(--card-radius);
     box-shadow: var(--card-shadow);
   }
-  
+
   .dashboard-content {
     display: grid;
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  
+
   /* Dashboard Header */
   .dashboard-header {
     display: flex;
@@ -41,7 +41,7 @@
     padding-bottom: 16px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   }
-  
+
   .dashboard-header h1 {
     font-size: 2.5rem;
     margin: 0;
@@ -51,23 +51,23 @@
     background-clip: text;
     letter-spacing: -0.5px;
   }
-  
+
   .subtitle {
     font-size: 1rem;
     margin: 8px 0 0;
     color: var(--grey-color);
   }
-  
+
   .completion-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
   }
-  
+
   .upload-problem-button {
     text-align: center;
   }
-  
+
   .upload-btn {
     background-color: #1D2D44;
     color: #fff;
@@ -86,22 +86,22 @@
     text-decoration: none; /* Removes any underline */
     outline: none; /* Prevents focus outlines */
     transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
-}
+  }
 
-.upload-btn:hover {
+  .upload-btn:hover {
     background-color: #0D1321;
     transform: translateY(-3px);
-}
+  }
 
-.upload-btn:focus {
+  .upload-btn:focus {
     outline: none;
-}
+  }
 
   .plus-sign {
     font-size: 20px;
     font-weight: bold;
   }  
-  
+
   /* Stats Container */
   .stats-container {
     display: grid;
@@ -109,13 +109,13 @@
     gap: 16px;
     margin-bottom: 32px;
   }
-  
+
   @media (max-width: 768px) {
     .stats-container {
       grid-template-columns: repeat(2, 1fr);
     }
   }
-  
+
   .stat-card {
     background-color: white;
     padding: 20px;
@@ -127,12 +127,12 @@
     position: relative;
     overflow: hidden;
   }
-  
+
   .stat-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--card-hover-shadow);
   }
-  
+
   .stat-card::after {
     content: '';
     position: absolute;
@@ -145,11 +145,11 @@
     transform-origin: left;
     transition: transform 0.3s ease-out;
   }
-  
+
   .stat-card:hover::after {
     transform: scaleX(1);
   }
-  
+
   .stat-icon {
     font-size: 2rem;
     margin-right: 16px;
@@ -160,27 +160,27 @@
     justify-content: center;
     border-radius: 12px;
   }
-  
+
   .stat-icon.total {
     background-color: rgba(62, 92, 118, 0.1);
     color: var(--primary-color);
   }
-  
+
   .stat-icon.active {
     background-color: rgba(76, 175, 80, 0.1);
     color: var(--success-color);
   }
-  
+
   .stat-icon.completed {
     background-color: rgba(255, 152, 0, 0.1);
     color: var(--warning-color);
   }
-  
+
   .stat-icon.scored {
     background-color: rgba(244, 67, 54, 0.1);
     color: var(--danger-color);
   }
-  
+
   .stat-content h3 {
     margin: 0;
     font-size: 0.875rem;
@@ -188,13 +188,13 @@
     letter-spacing: 0.5px;
     text-transform: uppercase;
   }
-  
+
   .stat-content p {
     margin: 5px 0 0;
     font-size: 1.75rem;
     font-weight: 600;
   }
-  
+
   /* Assignments Header */
   .assignments-header {
     display: flex;
@@ -202,30 +202,30 @@
     align-items: center;
     margin-bottom: 24px;
   }
-  
+
   .assignments-header h2 {
     font-size: 1.75rem;
     margin: 0;
     font-weight: 600;
   }
-  
+
   .result-count {
     margin: 4px 0 0;
     font-size: 0.875rem;
     color: var(--grey-color);
   }
-  
+
   .header-right {
     display: flex;
     gap: 12px;
     align-items: center;
   }
-  
+
   /* Search and Filter */
   .search-box {
     position: relative;
   }
-  
+
   .search-box input {
     padding: 10px 16px 10px 40px;
     border-radius: 20px;
@@ -235,14 +235,14 @@
     transition: all var(--transition-standard);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
-  
+
   .search-box input:focus {
     width: 250px;
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(62, 92, 118, 0.2);
   }
-  
+
   .search-icon {
     position: absolute;
     left: 14px;
@@ -250,7 +250,7 @@
     transform: translateY(-50%);
     color: var(--grey-color);
   }
-  
+
   .filter-dropdown select {
     padding: 10px 14px;
     border-radius: 20px;
@@ -268,19 +268,19 @@
     padding-right: 32px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
-  
+
   .filter-dropdown select:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(62, 92, 118, 0.2);
   }
-  
+
   /* View Mode Controls */
   .view-controls {
     display: flex;
     gap: 6px;
   }
-  
+
   .view-mode-btn {
     background: none;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -295,34 +295,34 @@
     transition: all var(--transition-standard);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
-  
+
   .view-mode-btn:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
-  
+
   .view-mode-btn.active {
     color: var(--primary-color);
     background-color: rgba(62, 92, 118, 0.1);
     border-color: var(--primary-color);
   }
-  
+
   /* Assignments List */
   .assignments-list {
     margin-bottom: 40px;
   }
-  
+
   .assignments-list.grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
   }
-  
+
   .assignments-list.list {
     display: flex;
     flex-direction: column;
     gap: 16px;
   }
-  
+
   /* Assignment Card */
   .assignment-card {
     background-color: white;
@@ -333,27 +333,27 @@
     animation-delay: calc(var(--card-index) * 0.05s);
     position: relative;
   }
-  
+
   .assignments-list.grid .assignment-card {
     display: flex;
     flex-direction: column;
     height: 100%;
   }
-  
+
   .assignments-list.list .assignment-card {
     display: grid;
     grid-template-columns: 230px 1fr;
   }
-  
+
   .assignment-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--card-hover-shadow);
   }
-  
+
   .assignment-card.pinned {
     order: -1;
   }
-  
+
   .assignment-card.pinned::before {
     content: '';
     position: absolute;
@@ -365,7 +365,7 @@
     transform: rotate(45deg) translateY(-14px);
     z-index: 1;
   }
-  
+
   .assignment-header {
     padding: 16px;
     color: white;
@@ -380,13 +380,13 @@
     font-size: larger;
     align-items: center;
     color: #F0EBD8;
-}
+  }
 
-  
+
   .assignments-list.grid .assignment-header {
     min-height: 80px;
   }
-  
+
   .assignment-header::before {
     content: '';
     position: absolute;
@@ -398,7 +398,7 @@
     border-radius: 50%;
     z-index: 0;
   }
-  
+
   .header-content {
     position: relative;
     z-index: 1;
@@ -407,13 +407,13 @@
     gap: 8px;
     flex: 1;
   }
-  
+
   .assignment-header h3 {
     margin: 0;
     font-size: 1.125rem;
     font-weight: 600;
   }
-  
+
   .status-badge {
     display: inline-block;
     padding: 4px 8px;
@@ -424,7 +424,7 @@
     backdrop-filter: blur(4px);
     align-self: flex-start;
   }
-  
+
   .pinned-badge {
     background-color: rgba(255, 255, 255, 0.25);
     border-radius: 50%;
@@ -435,14 +435,14 @@
     justify-content: center;
     z-index: 1;
   }
-  
+
   .assignment-details {
     padding: 16px;
     flex: 1;
     display: flex;
     flex-direction: column;
   }
-  
+
   .description {
     margin: 0 0 12px;
     font-size: 0.875rem;
@@ -454,7 +454,7 @@
     line-clamp: 2;
     -webkit-box-orient: vertical;
   }
-  
+
   .assignment-meta {
     display: flex;
     justify-content: space-between;
@@ -463,7 +463,7 @@
     flex-wrap: wrap;
     gap: 8px;
   }
-  
+
   .subject {
     padding: 4px 10px;
     border-radius: 12px;
@@ -471,23 +471,23 @@
     font-weight: 500;
     color: white;
   }
-  
+
   .deadline {
     font-size: 0.75rem;
     color: var(--grey-color);
     display: flex;
     align-items: center;
   }
-  
+
   .deadline.overdue {
     color: var(--danger-color);
     font-weight: 500;
   }
-  
+
   .days-remaining {
     margin-left: 4px;
   }
-  
+
   /* Upload Area */
   .upload-area {
     padding: 20px;
@@ -498,42 +498,42 @@
     position: relative;
     transition: all var(--transition-standard);
   }
-  
+
   .upload-area:hover {
     border-color: var(--primary-color);
     background-color: rgba(62, 92, 118, 0.05);
   }
-  
+
   .upload-area.dragging {
     border-color: var(--primary-color);
     background-color: rgba(62, 92, 118, 0.1);
     transform: scale(1.02);
   }
-  
+
   .upload-area p {
     margin: 0 0 10px;
     font-size: 0.875rem;
     color: var(--grey-color);
   }
-  
+
   .file-types {
     display: flex;
     justify-content: center;
     gap: 8px;
     margin-bottom: 12px;
   }
-  
+
   .file-types span {
     font-size: 1rem;
     cursor: pointer;
     transition: transform 0.2s ease;
     position: relative;
   }
-  
+
   .file-types span:hover {
     transform: scale(1.2);
   }
-  
+
   .file-input {
     position: absolute;
     width: 0.1px;
@@ -542,7 +542,7 @@
     overflow: hidden;
     z-index: -1;
   }
-  
+
   .upload-button {
     display: inline-block;
     padding: 8px 16px;
@@ -554,17 +554,17 @@
     cursor: pointer;
     transition: all var(--transition-standard);
   }
-  
+
   .upload-button:hover {
     background-color: var(--secondary-color);
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
-  
+
   .upload-progress {
     width: 100%;
   }
-  
+
   .progress-bar {
     height: 8px;
     background-color: rgba(0, 0, 0, 0.1);
@@ -572,14 +572,14 @@
     overflow: hidden;
     margin-bottom: 8px;
   }
-  
+
   .progress {
     height: 100%;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     border-radius: 4px;
     transition: width 0.2s ease-out;
   }
-  
+
   /* Submission Info */
   .submission-info {
     background-color: rgba(76, 175, 80, 0.1);
@@ -587,30 +587,30 @@
     border-radius: 8px;
     margin-bottom: 16px;
   }
-  
+
   .submission-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
   }
-  
+
   .submission-header p {
     margin: 0;
     font-size: 0.75rem;
     color: var(--dark-color);
   }
-  
+
   .file-type {
     font-size: 1.25rem;
   }
-  
+
   .waiting-feedback {
     margin: 0;
     font-size: 0.75rem;
     color: var(--success-color);
   }
-  
+
   /* Graded Info */
   .graded-info {
     background-color: rgba(255, 152, 0, 0.1);
@@ -618,46 +618,46 @@
     border-radius: 8px;
     margin-bottom: 16px;
   }
-  
+
   .grade-display {
     display: flex;
     align-items: center;
   }
-  
+
   .grade-label {
     font-size: 0.75rem;
     margin-right: 4px;
   }
-  
+
   .grade {
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--dark-color);
   }
-  
+
   .feedback {
     margin-top: 8px;
   }
-  
+
   .feedback h4 {
     margin: 0 0 4px;
     font-size: 0.75rem;
     color: var(--grey-color);
   }
-  
+
   .feedback p {
     margin: 0;
     font-size: 0.875rem;
     color: var(--dark-color);
   }
-  
+
   /* Card Actions */
   .card-actions {
     display: flex;
     gap: 8px;
     margin-top: auto;
   }
-  
+
   .view-button, .pin-button {
     padding: 8px 16px;
     border: none;
@@ -668,40 +668,40 @@
     transition: all var(--transition-standard);
     flex: 1;
   }
-  
+
   .view-button {
     background-color: var(--primary-color);
     border: 1px solid white;
     color: white;
   }
-  
+
   .view-button:hover {
     background-color: var(--secondary-color);
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
-  
+
   .pin-button {
     background-color: rgba(0, 0, 0, 0.05);
     color: var(--dark-color);
   }
-  
+
   .pin-button:hover {
     color: wheat;
     background-color: rgba(140, 138, 138, 0.1);
   }
-  
+
   .pin-button.pinned {
     background-color: rgba(255, 152, 0, 0.2);
     color: var(--warning-color);
   }
-  
+
   /* No Assignments */
   .no-assignments {
     padding: 40px 0;
     text-align: center;
   }
-  
+
   .empty-state {
     max-width: 400px;
     margin: 0 auto;
@@ -709,22 +709,22 @@
     flex-direction: column;
     align-items: center;
   }
-  
+
   .empty-state svg {
     color: var(--grey-color);
     margin-bottom: 16px;
   }
-  
+
   .empty-state h3 {
     font-size: 1.25rem;
     margin: 0 0 8px;
   }
-  
+
   .empty-state p {
     margin: 0 0 16px;
     color: var(--grey-color);
   }
-  
+
   .reset-filters {
     padding: 8px 16px;
     background-color: var(--primary-color);
@@ -736,13 +736,13 @@
     cursor: pointer;
     transition: all var(--transition-standard);
   }
-  
+
   .reset-filters:hover {
     background-color: var(--secondary-color);
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
-  
+
   /* Animations */
   @keyframes fadeInUp {
     from {
@@ -754,61 +754,61 @@
       transform: translateY(0);
     }
   }
-  
+
   .fade-in {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s cubic-bezier(0.39, 0.575, 0.565, 1), 
                 transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  
+
   .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
   }
-  
+
   /* Smooth Scrolling */
   html {
     scroll-behavior: smooth;
   }
-  
+
   /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: var(--primary-color);
     border-radius: 10px;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: var(--secondary-color);
   }
-  
+
   /* Status Colors */
   .assignment-card.pending {
     border-left: 4px solid var(--warning-color);
   }
-  
+
   .assignment-card.submitted {
     border-left: 4px solid var(--success-color);
   }
-  
+
   .assignment-card.graded {
     border-left: 4px solid var(--primary-color);
   }
-  
+
   .assignment-card.overdue {
     border-left: 4px solid var(--danger-color);
   }
-  
+
   /* Responsive Adjustments */
   @media (max-width: 768px) {
     .assignments-list.list .assignment-card {
@@ -852,7 +852,7 @@
       width: 100%;
     }
   }
-  
+
   /* Loading Animation */
   @keyframes shimmer {
     0% {
@@ -862,19 +862,19 @@
       background-position: 1000px 0;
     }
   }
-  
+
   .loading .assignment-card {
     background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
     background-size: 1000px 100%;
     animation: shimmer 2s infinite linear;
   }
-  
+
   /* Improved Hover Effects */
   .assignment-card {
     position: relative;
     z-index: 1;
   }
-  
+
   .assignment-card::after {
     content: '';
     position: absolute;
@@ -889,20 +889,20 @@
     border-radius: var(--card-radius);
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
   }
-  
+
   .assignment-card:hover::after {
     opacity: 1;
   }
-  
+
   /* Improved hover color for better visibility */
   .assignment-card:hover .description {
     color: rgba(13, 19, 33, 0.9);
   }
-  
+
   .assignment-card:hover .assignment-meta {
     color: rgba(13, 19, 33, 0.9);
   }
-  
+
   /* Pulse Animation for Overdue */
   @keyframes pulse {
     0% {
@@ -915,23 +915,23 @@
       box-shadow: 0 0 0 0 rgba(244, 67, 54, 0);
     }
   }
-  
+
   .assignment-card.overdue {
     animation: pulse 2s infinite;
   }
-  
+
   /* Improved Slide Animation for Card Actions */
   .card-actions {
     transform: translateY(5px);
     opacity: 0.8;
     transition: all var(--transition-standard);
   }
-  
+
   .assignment-card:hover .card-actions {
     transform: translateY(0);
     opacity: 1;
   }
-  
+
   /* Scroll Reveal Animation */
   .assignment-card {
     transform: translateY(40px);
@@ -939,26 +939,26 @@
     animation: fadeInUp 0.6s forwards;
     animation-delay: calc(var(--card-index) * 0.05s);
   }
-  
+
   /* Pin Button Animation */
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-  
+
   .pin-button.pinned:hover::before {
     content: '📌';
     display: inline-block;
     margin-right: 4px;
     animation: spin 1s linear;
   }
-  
+
   /* Focus states for accessibility */
   button:focus, input:focus, select:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
   }
-  
+
   /* Dark mode support */
   @media (prefers-color-scheme: dark) {
     :root {

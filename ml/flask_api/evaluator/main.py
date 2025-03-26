@@ -26,8 +26,6 @@ class Evaluator:
       pre_proc = PreProcessor(sem_desc).main() # preprocessed
       sem_desc_mat, golden_mat = Vectorizer(pre_proc, param).main() # vectorised
       scores[param] = Comperator().main(sem_desc_mat, golden_mat) # score
-
-      print(f"Score of {param} :", scores[param]) # temp
     
     return scores
     
