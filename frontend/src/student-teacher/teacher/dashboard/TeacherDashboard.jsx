@@ -524,15 +524,15 @@ const TeacherDashboard = ({ addNotification }) => {
   const stats = {
     total: processedProblems.length,
     active: processedProblems.filter((p) => p.status === "active").length,
-    completed: processedProblems.filter((p) => p.status === "completed").length,
+/*     completed: processedProblems.filter((p) => p.status === "completed").length, */
     graded: processedProblems.filter((p) => p.status === "graded").length,
   };
 
-  // Compute completion percentage
+/*   // Compute completion percentage
   const completionPercentage =
     processedProblems.length > 0
       ? Math.round((stats.completed / stats.total) * 100)
-      : 0;
+      : 0; */
 
   // Helper: Format date string
   const formatDate = (dateString) => {
@@ -579,12 +579,17 @@ const TeacherDashboard = ({ addNotification }) => {
 
   // Navigate to the problem details page
   const viewProblem = (problemId) => {
-    navigate(`/problem/${problemId}`);
+    navigate(`/submissions/${problemId}`);
     addNotification &&
       addNotification({ message: "Viewing problem details", type: "info" });
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div class="loading-overlay">
+  <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading...</div>
+  </div>
+</div>;
 
   return (
     <>
@@ -625,13 +630,13 @@ const TeacherDashboard = ({ addNotification }) => {
                   <p>{stats.active}</p>
                 </div>
               </div>
-              <div className="stat-card">
+              {/* <div className="stat-card">
                 <div className="stat-icon pending">⏳</div>
                 <div className="stat-content">
                   <h3>Completed</h3>
                   <p>{stats.completed}</p>
                 </div>
-              </div>
+              </div> */}
               <div className="stat-card">
                 <div className="stat-icon overdue">⚠️</div>
                 <div className="stat-content">
@@ -697,7 +702,7 @@ const TeacherDashboard = ({ addNotification }) => {
                   >
                     <option value="all">All Statuses</option>
                     <option value="active">Active</option>
-                    <option value="completed">Completed</option>
+                    {/* <option value="completed">Completed</option> */}
                     <option value="graded">Graded</option>
                   </select>
                 </div>
@@ -723,7 +728,7 @@ const TeacherDashboard = ({ addNotification }) => {
                     key={problem.id}
                     className={`assignment-card fade-in ${problem.status} ${
                       isOverdue(problem.deadline) && problem.status === "active"
-                        ? "overdue"
+                        ? /* "overdue" */"graded"
                         : ""
                     } `}
                     style={{
@@ -740,8 +745,8 @@ const TeacherDashboard = ({ addNotification }) => {
                         <div className="status-badge">
                           {problem.status === "active"
                             ? "Active"
-                            : problem.status === "completed"
-                            ? "Completed"
+                            /* : problem.status === "completed"
+                            ? "Completed" */
                             : "Graded"}
                         </div>
                       </div>
@@ -759,13 +764,13 @@ const TeacherDashboard = ({ addNotification }) => {
                           className={`deadline ${
                             isOverdue(problem.deadline) &&
                             problem.status === "active"
-                              ? "overdue"
+                              ? /* "overdue" */"graded"
                               : ""
                           }`}
                         >
                           {isOverdue(problem.deadline) &&
                           problem.status === "active"
-                            ? "OVERDUE: "
+                            ? "GRADED"
                             : "Due: "}
                           {formatDate(problem.deadline)}
                           {!isOverdue(problem.deadline) &&
@@ -783,13 +788,12 @@ const TeacherDashboard = ({ addNotification }) => {
 
                       <div className="submission-stats">
                         <div className="submission-header">
-                          <h4>Student Submissions:</h4>
-                          <span className="submission-count">
-                            {problem.submissionCount} / {problem.totalStudents}
-                          </span>
+                          <h4>Student Submissions: </h4>
+                          
+                          
                         </div>
-                        <div className="submission-progress">
-                          <div
+                         <div className="submission-progress">
+                          {/* <div
                             className="progress-bar"
                             style={{
                               width: `${
@@ -799,29 +803,32 @@ const TeacherDashboard = ({ addNotification }) => {
                               }%`,
                               backgroundColor: problem.color,
                             }}
-                          ></div>
-                        </div>
-                        <p className="submission-status">
-                          {problem.submissionCount
-                            ? `${problem.submissionCount} student${
-                                problem.submissionCount !== 1
-                                  ? "s have"
-                                  : " has"
-                              } submitted their solution${
-                                problem.submissionCount !== 1 ? "s" : ""
-                              }`
-                            : "No submissions yet"}
-                        </p>
+                          ></div> */}
+                            <div className="submission-dots">
+                            
+                            <span className="submission-count"><h4>{problem.submissionCount} Submitted</h4></span>
+                          </div>
+
+                        </div><br></br>
+                        {/* <p className="submission-status">
+                          <i>Results will be available once the deadline ends!</i>
+                        </p> */}
                       </div>
 
-                      <div className="card-actions">
+                      {isOverdue(problem.deadline) ? (
                         <button
                           className="view-button"
                           onClick={() => viewProblem(problem.id)}
                         >
                           View Submissions
                         </button>
-                        {problem.status === "active" && (
+                      ) : (
+                        <p className="submission-status">
+                          <i>Results will be available once the deadline ends!</i>
+                        </p>
+                      )}
+
+                        {/* {problem.status === "active" && (
                           <button
                             className="status-button pause"
                             onClick={() => {
@@ -834,10 +841,10 @@ const TeacherDashboard = ({ addNotification }) => {
                           >
                             Pause
                           </button>
-                        )}
+                        )} */}
                       </div>
                     </div>
-                  </div>
+                  // </div>
                 ))
               ) : (
                 <div className="no-assignments fade-in">

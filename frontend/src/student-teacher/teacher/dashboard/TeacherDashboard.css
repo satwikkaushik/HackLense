@@ -105,7 +105,7 @@
   /* Stats Container */
   .stats-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
     margin-bottom: 32px;
   }
@@ -1024,4 +1024,20 @@
     ::-webkit-scrollbar-track {
       background: #1D2D44;
     }
+  }
+  .submission-dots {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    background: #6d4fc2;
+    border-radius: 50%;
+    animation: popIn 0.5s ease-in-out;
+  }
+  @keyframes popIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
   }

@@ -62,7 +62,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/">🏆VisionGrade</Link>
+        <Link to="/">🏆 VisionGrade</Link>
       </div>
 
       <div className="nav-actions">

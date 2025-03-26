@@ -207,6 +207,18 @@ const SignUpPage = () => {
               {errors.name && <p className="error">{errors.name}</p>}
             </div>
 
+            <div className="form-input-group">
+              <label htmlFor="department">Department</label>
+              <input
+                type="text"
+                id="department"
+                name="name"
+                // value="department"
+                required
+              />
+              {errors.name && <p className="error">{errors.name}</p>}
+            </div>
+
             <button type="submit" className="signup-button">
               Sign Up
             </button>

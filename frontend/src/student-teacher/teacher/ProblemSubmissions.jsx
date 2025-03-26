@@ -1,25 +1,29 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Download, Eye, FileText, GripVertical, ArrowUp, ArrowDown, Info, BarChart, PieChart, LineChart } from 'lucide-react';
+import { Download, Eye, Info, GripVertical, PieChart, BarChart, LineChart } from 'lucide-react';
+import { usedefaultParameter } from './components/hooks/useDefaultParameters';
 import './ProblemSubmissions.css';
 
 const ProblemSubmissions = ({ problemId }) => {
+  // Get default parameters from our hook (do not change useDefaultParameters.js)
+  const { defaultParameters } = usedefaultParameter();
+
   const [problem, setProblem] = useState(null);
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: 'rank', direction: 'asc' });
   const [showRubricInfo, setShowRubricInfo] = useState(false);
-  
+
   // Fetch problem data and submissions
   useEffect(() => {
     const fetchProblemData = async () => {
       try {
         setLoading(true);
-        
-        // This would be replaced with your actual API endpoint
+        // Replace these API calls with your actual endpoints
         const problemResponse = await fetch(`/api/problems/${problemId}`);
         const submissionsResponse = await fetch(`/api/problems/${problemId}/submissions`);
+
         
         if (!problemResponse.ok || !submissionsResponse.ok) {
           throw new Error('Failed to fetch problem data');
@@ -35,286 +39,275 @@ const ProblemSubmissions = ({ problemId }) => {
         setError(err.message);
         setLoading(false);
         
-        // For demo purposes, set mock data if API fails
+        // Create mock problem data if fetch fails
         const mockProblem = {
-          id: problemId || '1',
-          title: "Advanced Calculus Problem Set",
-          description: "Solve the following problems related to multivariable calculus and optimization. Focus on partial derivatives, gradient vectors, and Lagrange multipliers for constrained optimization problems.",
-          subject: "Mathematics",
-          createdAt: "2023-10-15",
+          title: 'Innovative Problem Solving Challenge',
+          subject: 'Innovative Design',
+          description: 'Create an innovative solution addressing a real-world challenge',
           teacherParameters: [
-            { id: 1, name: "Technical Accuracy", weight: 5, description: "Correctness of mathematical procedures and calculations" },
-            { id: 2, name: "Problem Approach", weight: 4, description: "Strategy and methodology used to solve problems" },
-            { id: 3, name: "Completeness", weight: 3, description: "Addressing all parts of each problem" }
+            { id: 1, name: 'Creativity', description: 'Originality and unique approach', weight: 0.3 },
+            { id: 2, name: 'Feasibility', description: 'Practical implementation potential', weight: 0.3 },
+            { id: 3, name: 'Impact', description: 'Potential societal or industrial benefit', weight: 0.4 }
           ],
-          defaultParameters: [
-            { id: 4, name: "Clarity", weight: 3, description: "Clear presentation of solutions" },
-            { id: 5, name: "Organization", weight: 2, description: "Logical flow and structure" },
-            { id: 6, name: "Creativity", weight: 2, description: "Novel approaches or insights" },
-            { id: 7, name: "Depth", weight: 3, description: "Thorough exploration of concepts" }
-          ]
+          // Use the first default parameter from our hook
+          defaultParameters: [defaultParameters[0]],
         };
-        
+
         // Generate 10 mock submissions
         const mockSubmissions = Array.from({ length: 10 }, (_, i) => {
-          // Generate random scores for each parameter
           const teacherParamScores = mockProblem.teacherParameters.map(param => ({
             parameterId: param.id,
-            score: Math.floor(Math.random() * 10) + 1, // Random score between 1-10
+            score: Math.floor(Math.random() * 10) + 1,
             weight: param.weight
           }));
-          
-          const defaultParamScores = mockProblem.defaultParameters.map(param => ({
-            parameterId: param.id,
-            score: Math.floor(Math.random() * 10) + 1, // Random score between 1-10
-            weight: param.weight
-          }));
-          
-          // Calculate weighted averages
+
+          const defaultParamScore = {
+            parameterId: defaultParameters[0].id,
+            score: Math.floor(Math.random() * 10) + 1,
+            weight: 1
+          };
+
           const teacherTotal = teacherParamScores.reduce((sum, p) => sum + (p.score * p.weight), 0);
           const teacherWeightSum = mockProblem.teacherParameters.reduce((sum, p) => sum + p.weight, 0);
           const teacherAvg = teacherTotal / teacherWeightSum;
-          
-          const defaultTotal = defaultParamScores.reduce((sum, p) => sum + (p.score * p.weight), 0);
-          const defaultWeightSum = mockProblem.defaultParameters.reduce((sum, p) => sum + p.weight, 0);
-          const defaultAvg = defaultTotal / defaultWeightSum;
-          
-          // Overall average
-          const overallAvg = (teacherTotal + defaultTotal) / (teacherWeightSum + defaultWeightSum);
-          
+          const defaultAvg = defaultParamScore.score;
+          const overallAvg = (teacherTotal + defaultAvg) / (teacherWeightSum + 1);
+
           return {
             id: `sub_${i + 1}`,
             studentId: `student_${i + 1}`,
             studentName: `Student ${i + 1}`,
-            rank: i + 1, // Initial rank
+            rank: i + 1,
             submittedAt: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
-            fileType: ['pdf', 'docx', 'zip'][Math.floor(Math.random() * 3)],
-            parameterScores: [...teacherParamScores, ...defaultParamScores],
+            fileType: ['audio', 'video', 'image', 'text'][Math.floor(Math.random() * 3)],
+            parameterScores: [...teacherParamScores, defaultParamScore],
             teacherAverage: teacherAvg.toFixed(1),
             defaultAverage: defaultAvg.toFixed(1),
             overallScore: overallAvg.toFixed(1)
           };
         });
-        
-        // Sort by overall score descending
+
+        // Sort by overall score descending and reassign ranks
         mockSubmissions.sort((a, b) => parseFloat(b.overallScore) - parseFloat(a.overallScore));
-        
-        // Assign ranks
         mockSubmissions.forEach((sub, idx) => {
           sub.rank = idx + 1;
         });
-        
+
         setProblem(mockProblem);
         setSubmissions(mockSubmissions);
       }
     };
 
     fetchProblemData();
-  }, [problemId]);
+  }, [problemId, defaultParameters]);
 
-  // Handle drag end for reordering
-  const handleDragEnd = (result) => {
-    if (!result.destination) return;
+  // Calculate statistics for charts
+  const calculateStats = () => {
+    if (!submissions || submissions.length === 0) return null;
     
-    const sourceIndex = result.source.index;
-    const destinationIndex = result.destination.index;
+    // File type distribution
+    const fileTypes = {};
+    submissions.forEach(sub => {
+      fileTypes[sub.fileType] = (fileTypes[sub.fileType] || 0) + 1;
+    });
     
-    // Create a copy of the submissions array
-    const items = Array.from(submissions);
+    // Parameter scores using teacher parameters
+    const paramScores = {};
+    if (problem && problem.teacherParameters) {
+      problem.teacherParameters.forEach(param => {
+        let total = 0;
+        let count = 0;
+        submissions.forEach(sub => {
+          const score = sub.parameterScores.find(p => p.parameterId === param.id)?.score;
+          if (score) {
+            total += score;
+            count++;
+          }
+        });
+        paramScores[param.name] = count > 0 ? (total / count).toFixed(1) : 0;
+      });
+    }
     
-    // Remove the dragged item
-    const [reorderedItem] = items.splice(sourceIndex, 1);
+    // Result grade distribution
+    const resultGrades = {
+      'Rejected (0 - 3.5)': 0,
+      'Revisit (4 - 6.5)': 0,
+      'Shortlisted (7 - 10)': 0
+    };
     
-    // Insert the item at the new position
-    items.splice(destinationIndex, 0, reorderedItem);
+    submissions.forEach(sub => {
+      const score = parseFloat(sub.overallScore);
+      if (score <= 3.5) resultGrades['Rejected (0 - 3.5)']++;
+      else if (score <= 6.5) resultGrades['Revisit (4 - 6.5)']++;
+      else resultGrades['Shortlisted (7 - 10)']++;
+    });
     
-    // Update ranks - ranks are fixed from 1-10, so we're just changing which student has which rank
-    const updatedItems = items.map((item, index) => ({
-      ...item,
-      rank: index + 1
-    }));
-    
-    setSubmissions(updatedItems);
-    
-    // In a real application, you would send the updated ranks to your backend
-    // saveRanksToBackend(updatedItems);
+    return { fileTypes, paramScores, resultGrades };
   };
 
-  // Handle sorting
+  const stats = calculateStats();
+
+  // --- Helper Functions ---
+
+  // Sort submissions by key (supports teacher parameters using keys like "param_1")
   const requestSort = (key) => {
     let direction = 'asc';
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
     }
     setSortConfig({ key, direction });
-    
     const sortedSubmissions = [...submissions].sort((a, b) => {
-      if (key === 'rank' || key === 'overallScore' || key.startsWith('param_')) {
-        // Numeric sorting
-        const aValue = key === 'rank' ? a[key] : 
-                      key === 'overallScore' ? parseFloat(a[key]) : 
-                      a.parameterScores.find(p => p.parameterId === parseInt(key.split('_')[1]))?.score || 0;
-                      
-        const bValue = key === 'rank' ? b[key] : 
-                      key === 'overallScore' ? parseFloat(b[key]) : 
-                      b.parameterScores.find(p => p.parameterId === parseInt(key.split('_')[1]))?.score || 0;
-        
-        return direction === 'asc' ? aValue - bValue : bValue - aValue;
-      } else {
-        // String sorting
-        if (a[key] < b[key]) return direction === 'asc' ? -1 : 1;
-        if (a[key] > b[key]) return direction === 'asc' ? 1 : -1;
-        return 0;
+      let aValue = a[key];
+      let bValue = b[key];
+      if (key.startsWith('param_')) {
+        const paramId = parseInt(key.split('_')[1], 10);
+        aValue = a.parameterScores.find(p => p.parameterId === paramId)?.score || 0;
+        bValue = b.parameterScores.find(p => p.parameterId === paramId)?.score || 0;
       }
+      if (typeof aValue === 'string') {
+        aValue = aValue.toUpperCase();
+        bValue = bValue.toUpperCase();
+      }
+      if (aValue < bValue) return direction === 'asc' ? -1 : 1;
+      if (aValue > bValue) return direction === 'asc' ? 1 : -1;
+      return 0;
     });
-    
-    // After sorting, we need to reassign ranks from 1-10
-    const rankedSubmissions = sortedSubmissions.map((sub, idx) => ({
-      ...sub,
-      rank: idx + 1
-    }));
-    
-    setSubmissions(rankedSubmissions);
+    setSubmissions(sortedSubmissions);
   };
 
-  // Helper function to get sort indicator
+  // Return a sort indicator arrow if the column is sorted
   const getSortIndicator = (key) => {
-    if (sortConfig.key !== key) return null;
-    return sortConfig.direction === 'asc' ? <ArrowUp className="sort-icon" /> : <ArrowDown className="sort-icon" />;
+    return sortConfig.key === key ? (sortConfig.direction === 'asc' ? '↑' : '↓') : '';
   };
 
-// Helper function to get file type icon
-const getFileTypeIcon = (type) => {
-  if (!type) return '📄'; // Default icon for unknown types
-
-  switch (type.toLowerCase()) {
-    case 'pdf':
-      return '📄';
-    case 'docx':
-    case 'doc':
-      return '📝';
-    case 'ppt':
-    case 'pptx':
-      return '📊';
-    case 'zip':
-    case 'rar':
-    case '7z':
-      return '📦';
-    case 'py':
-      return '🐍';
-    case 'jpg':
-    case 'jpeg':
-    case 'png':
-    case 'gif':
-    case 'bmp':
-    case 'svg':
-      return '🖼️'; // Image icon
-    case 'mp3':
-    case 'wav':
-    case 'ogg':
-    case 'flac':
-      return '🎵'; // Audio icon
-    case 'mp4':
-    case 'avi':
-    case 'mkv':
-    case 'mov':
-    case 'webm':
-      return '🎥'; // Video icon
-    default:
-      return '📄'; // Default document icon
-  }
-};
-
-  // Handle file download
-  const handleDownload = (submissionId, studentName, fileType) => {
-    // In a real application, this would make an API call to download the file
-    console.log(`Downloading submission ${submissionId} from ${studentName}`);
+  // Handle drag and drop reordering
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
     
-    // Mock download functionality
-    alert(`Downloading ${studentName}'s submission (${fileType.toUpperCase()})`);
-  };
-
-  // Handle view submission
-  const handleViewSubmission = (submissionId, studentName) => {
-    // In a real application, this would navigate to a submission view page
-    console.log(`Viewing submission ${submissionId} from ${studentName}`);
+    // Create a copy of submissions to avoid direct mutation
+    const items = Array.from(submissions);
     
-    // Mock view functionality
-    alert(`Viewing ${studentName}'s submission details`);
-  };
-
-  // Calculate statistics for charts
-  const calculateStats = () => {
-    if (!submissions || submissions.length === 0) return null;
+    // Remove the dragged item from its original position
+    const [reorderedItem] = items.splice(result.source.index, 1);
     
-    // File type distribution for pie chart
-    const fileTypes = {};
-    submissions.forEach(sub => {
-      fileTypes[sub.fileType] = (fileTypes[sub.fileType] || 0) + 1;
+    // Insert the dragged item at the new position
+    items.splice(result.destination.index, 0, reorderedItem);
+    
+    // Update ranks after drag and drop
+    items.forEach((item, index) => {
+      item.rank = index + 1;
     });
     
-    // Average scores by parameter for bar chart
-    const paramScores = {};
-    problem.teacherParameters.concat(problem.defaultParameters).forEach(param => {
-      let total = 0;
-      let count = 0;
-      
-      submissions.forEach(sub => {
-        const score = sub.parameterScores.find(p => p.parameterId === param.id)?.score;
-        if (score) {
-          total += score;
-          count++;
-        }
-      });
-      
-      paramScores[param.name] = count > 0 ? (total / count).toFixed(1) : 0;
-    });
-    
-    // Score distribution for line chart
-    const scoreDistribution = {
-      '1-2': 0,
-      '3-4': 0,
-      '5-6': 0,
-      '7-8': 0,
-      '9-10': 0
-    };
-    
-    submissions.forEach(sub => {
-      const score = parseFloat(sub.overallScore);
-      if (score <= 2) scoreDistribution['1-2']++;
-      else if (score <= 4) scoreDistribution['3-4']++;
-      else if (score <= 6) scoreDistribution['5-6']++;
-      else if (score <= 8) scoreDistribution['7-8']++;
-      else scoreDistribution['9-10']++;
-    });
-    
-    return { fileTypes, paramScores, scoreDistribution };
+    // Update state with new order
+    setSubmissions(items);
   };
 
-  const stats = calculateStats();
+  // Dummy function to view submission details
+  const handleViewSubmission = (id, studentName) => {
+    console.log(`Viewing submission ${id} of ${studentName}`);
+  };
 
-  if (loading) {
+  // Dummy function to trigger a download
+  const handleDownload = (id, studentName, fileType) => {
+    console.log(`Downloading submission ${id} of ${studentName} (${fileType})`);
+  };
+
+  // Return an icon for the file type
+  const getFileTypeIcon = (fileType) => {
+    switch (fileType) {
+      case 'audio': return <span>🔈</span>;
+      case 'video': return <span>🎬</span>;
+      case 'image': return <span>🖼️</span>;
+      case 'text': return <span>📝</span>;
+      default: return <span>📝</span>;
+    }
+  };
+
+  // Render a single ring pie chart for file type distribution
+  const renderFileTypeDistribution = () => {
+    if (!stats || !stats.fileTypes) return null;
+    
+    const total = submissions.length;
+    let cumulative = 0;
+    const fileTypesArray = Object.entries(stats.fileTypes);
+    
+    const gradientStops = fileTypesArray.map(([type, count], index) => {
+      const percentage = (count / total) * 100;
+      const start = cumulative;
+      cumulative += percentage;
+      const color = `hsl(${index * 120}, 70%, 50%)`;
+      return `${color} ${start}% ${cumulative}%`;
+    });
+    
+    const gradientString = `conic-gradient(${gradientStops.join(', ')})`;
+  
     return (
-      <div className="problem-submissions-container">
-        <div className="loading-spinner">
-          <div className="spinner"></div>
-          <p>Loading problem submissions...</p>
+      <div className="file-type-distribution">
+        <div 
+          className="ring-pie-chart" 
+          style={{ 
+            background: gradientString,
+            '--total-submissions': total 
+          }}
+        ></div>
+        <div className="pie-chart-legend">
+          {fileTypesArray.map(([type, count], index) => {
+            const color = `hsl(${index * 120}, 70%, 50%)`;
+            const percentage = ((count / total) * 100).toFixed(1);
+            return (
+              <div 
+                key={type} 
+                className="legend-item"
+                data-count={`${count} submissions`}
+              >
+                <span 
+                  className="legend-color" 
+                  style={{ backgroundColor: color }}
+                ></span>
+                {type.toUpperCase()}: {count} ({percentage}%)
+              </div>
+            );
+          })}
         </div>
       </div>
     );
-  }
+  };
 
-  if (error && !problem) {
+  // Render a table for Result Grade Distribution
+  const renderResultGradeDistribution = () => {
+    if (!stats || !stats.resultGrades) return null;
+    
+    const total = submissions.length;
+    
     return (
-      <div className="problem-submissions-container">
-        <div className="error-message">
-          <h2>Error Loading Data</h2>
-          <p>{error}</p>
-          <button onClick={() => window.location.reload()}>Try Again</button>
+      <div className="chart-card">
+        <div className="chart-header">
+          <h4>Result Grade Distribution</h4>
         </div>
+        <table className="grade-distribution-table">
+          <thead>
+            <tr>
+              <th style={{ textAlign: 'left', color: 'yellowgreen' }}>Grade Range</th>
+              <th style={{ textAlign: 'left', color: 'yellowgreen'}}>Count</th>
+              <th style={{ textAlign: 'left', color: 'yellowgreen' }}>Percentage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(stats.resultGrades).map(([range, count]) => (
+              <tr key={range}>
+                <td>{range}</td>
+                <td>{count}</td>
+                <td>{((count / total) * 100).toFixed(1)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
-  }
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error && !problem) return <div>Error: {error}</div>;
 
   return (
     <div className="problem-submissions-container">
@@ -330,7 +323,7 @@ const getFileTypeIcon = (type) => {
         </div>
         <p className="description">{problem.description}</p>
       </div>
-
+  
       <div className="rubric-header">
         <h3>Submission Rubric</h3>
         <button 
@@ -341,7 +334,7 @@ const getFileTypeIcon = (type) => {
           {showRubricInfo ? 'Hide Rubric Info' : 'Show Rubric Info'}
         </button>
       </div>
-
+  
       {showRubricInfo && (
         <div className="rubric-info">
           <div className="rubric-section">
@@ -358,19 +351,18 @@ const getFileTypeIcon = (type) => {
             </div>
           </div>
           
-          <div className="rubric-section">
+          {/* <div className="rubric-section">
             <h4>Default Parameters</h4>
             <div className="parameters-list">
               {problem.defaultParameters.map(param => (
                 <div key={param.id} className="parameter-item">
                   <div className="parameter-name">
-                    <strong>{param.name}</strong> (Weight: {param.weight})
+                    <strong>{param.name}</strong>
                   </div>
-                  <div className="parameter-description">{param.description}</div>
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
           
           <div className="rubric-note">
             <p>
@@ -380,7 +372,7 @@ const getFileTypeIcon = (type) => {
           </div>
         </div>
       )}
-
+  
       <div className="rubric-table-container">
         <DragDropContext onDragEnd={handleDragEnd}>
           <table className="rubric-table">
@@ -393,32 +385,29 @@ const getFileTypeIcon = (type) => {
                 <th onClick={() => requestSort('studentName')}>
                   Student Name {getSortIndicator('studentName')}
                 </th>
-                
-                {/* Teacher Parameters */}
                 {problem.teacherParameters.map(param => (
                   <th key={param.id} onClick={() => requestSort(`param_${param.id}`)}>
                     {param.name} (x{param.weight}) {getSortIndicator(`param_${param.id}`)}
                   </th>
                 ))}
-                
                 <th onClick={() => requestSort('teacherAverage')}>
                   Teacher Criteria Avg {getSortIndicator('teacherAverage')}
                 </th>
-                
-                {/* Default Parameters - Collapsed into one column */}
                 <th onClick={() => requestSort('defaultAverage')}>
-                  Core Criteria Avg {getSortIndicator('defaultAverage')}
+                  {problem.defaultParameters[0].name} {getSortIndicator('defaultAverage')}
                 </th>
-                
                 <th onClick={() => requestSort('overallScore')}>
                   Overall Score {getSortIndicator('overallScore')}
                 </th>
-                
                 <th className="file-col">Submission</th>
               </tr>
             </thead>
             
-            <Droppable droppableId="submissions" direction="vertical">
+            <Droppable 
+              droppableId="submissions" 
+              direction="vertical" 
+              isDropDisabled={false}
+            >
               {(provided) => (
                 <tbody
                   {...provided.droppableProps}
@@ -437,8 +426,6 @@ const getFileTypeIcon = (type) => {
                           </td>
                           <td className="rank-col">{submission.rank}</td>
                           <td className="student-name">{submission.studentName}</td>
-                          
-                          {/* Teacher Parameters Scores */}
                           {problem.teacherParameters.map(param => {
                             const paramScore = submission.parameterScores.find(p => p.parameterId === param.id);
                             return (
@@ -453,11 +440,9 @@ const getFileTypeIcon = (type) => {
                               </td>
                             );
                           })}
-                          
                           <td className="average-cell">{submission.teacherAverage}</td>
                           <td className="average-cell">{submission.defaultAverage}</td>
                           <td className="overall-score">{submission.overallScore}</td>
-                          
                           <td className="file-actions">
                             <div className="file-type">
                               {getFileTypeIcon(submission.fileType)} {submission.fileType.toUpperCase()}
@@ -490,38 +475,24 @@ const getFileTypeIcon = (type) => {
           </table>
         </DragDropContext>
       </div>
-
-      {/* Data Visualization Section */}
+  
       <div className="data-visualization-section">
         <h3>Submission Analytics</h3>
-        
         <div className="charts-container">
-          {/* File Type Distribution Pie Chart */}
+          {/* File Type Distribution */}
           <div className="chart-card">
             <div className="chart-header">
               <PieChart className="chart-icon" />
               <h4>File Type Distribution</h4>
             </div>
-            <div className="pie-chart">
-              {stats && Object.entries(stats.fileTypes).map(([type, count], index) => (
-                <div key={type} className="pie-segment" style={{
-                  '--segment-color': index === 0 ? '#748CAB' : index === 1 ? '#3E5C76' : '#F0EBD8',
-                  '--segment-percentage': `${(count / submissions.length) * 100}%`
-                }}>
-                  <div className="segment-label">
-                    <span className="file-dot" style={{ backgroundColor: index === 0 ? '#748CAB' : index === 1 ? '#3E5C76' : '#F0EBD8' }}></span>
-                    {type.toUpperCase()}: {count} ({Math.round((count / submissions.length) * 100)}%)
-                  </div>
-                </div>
-              ))}
-            </div>
+            {renderFileTypeDistribution()}
           </div>
           
-          {/* Parameter Average Scores Bar Chart */}
+          {/* Teacher Parameter Average Scores Bar Chart */}
           <div className="chart-card">
             <div className="chart-header">
               <BarChart className="chart-icon" />
-              <h4>Average Parameter Scores</h4>
+              <h4>Performance by Evaluation Criteria</h4>
             </div>
             <div className="bar-chart">
               {stats && Object.entries(stats.paramScores).map(([param, score], index) => (
@@ -532,7 +503,7 @@ const getFileTypeIcon = (type) => {
                       className="bar" 
                       style={{ 
                         width: `${parseFloat(score) * 10}%`,
-                        backgroundColor: index % 2 === 0 ? '#748CAB' : '#3E5C76'
+                        backgroundColor: `hsl(${index * 120}, 70%, 50%)`
                       }}
                     ></div>
                     <span className="bar-value">{score}</span>
@@ -542,25 +513,8 @@ const getFileTypeIcon = (type) => {
             </div>
           </div>
           
-          {/* Score Distribution Line Chart */}
-          <div className="chart-card">
-            <div className="chart-header">
-              <LineChart className="chart-icon" />
-              <h4>Score Distribution</h4>
-            </div>
-            <div className="line-chart">
-              {stats && Object.entries(stats.scoreDistribution).map(([range, count], index, array) => (
-                <div key={range} className="line-point" style={{
-                  '--point-height': `${(count / Math.max(...Object.values(stats.scoreDistribution))) * 100}%`,
-                  '--point-position': `${(index / (array.length - 1)) * 100}%`
-                }}>
-                  <div className="point-marker"></div>
-                  <div className="point-label">{range}</div>
-                  <div className="point-value">{count}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Result Grade Distribution Table */}
+          {renderResultGradeDistribution()}
         </div>
       </div>
     </div>

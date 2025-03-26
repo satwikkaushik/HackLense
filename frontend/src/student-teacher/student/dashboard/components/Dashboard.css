@@ -90,7 +90,7 @@
 }
 
 /* Stats Container */
-.stats-container {
+.stats-container1 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
@@ -98,7 +98,7 @@
 }
 
 @media (max-width: 768px) {
-  .stats-container {
+  .stats-container1 {
     grid-template-columns: repeat(2, 1fr);
   }
 }

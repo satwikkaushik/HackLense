@@ -900,4 +900,75 @@ th:hover .sort-icon {
     height: 80px;
   }
 }
+.file-type-distribution {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.ring-pie-chart {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.ring-pie-chart:hover {
+  transform: scale(1.05);
+}
+
+.ring-pie-chart::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  background-color: var(--dark-blue-2);
+  border-radius: 50%;
+}
+
+.pie-chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--cream);
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Animated tooltip on hover */
+.legend-item::after {
+  content: attr(data-count);
+  opacity: 0;
+  position: absolute;
+  background-color: var(--medium-blue);
+  color: var(--cream);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+}
+
+.legend-item:hover::after {
+  opacity: 1;
+}
 
