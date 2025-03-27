@@ -1,18 +1,6 @@
 /* SignUpPage.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #0D1321;
-  color: #F0EBD8;
-}
 
 .signup-page-container {
   min-height: 100vh;

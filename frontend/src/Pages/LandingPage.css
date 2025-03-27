@@ -30,25 +30,25 @@ body {
 }
 
 /* Typography */
-h1, h2, h3 {
+.hero h1, h2, h3 {
   font-weight: 700;
   margin-bottom: 1rem;
   color: var(--cream);
 }
 
-h1 {
+.hero h1 {
   font-size: 3rem;
   margin-bottom: 1.5rem;
 }
 
-h2 {
+.hero h2 {
   font-size: 2.5rem;
   position: relative;
   display: inline-block;
   margin-bottom: 2rem;
 }
 
-h2::after {
+.hero h2::after {
   content: '';
   position: absolute;
   bottom: -10px;
@@ -67,7 +67,7 @@ h2::after {
   }
 }
 
-p {
+.hero p {
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
 }
@@ -278,14 +278,14 @@ button:hover::before, .signup-btn:hover::before {
 }
 
 /* Footer */
-footer {
+.landing-footer {
   background-color: var(--dark-blue);
   padding: 30px 20px;
   text-align: center;
   border-top: 1px solid rgba(116, 140, 171, 0.2);
 }
 
-footer p {
+.landing-footer p {
   margin-bottom: 0;
   font-size: 0.9rem;
   color: var(--light-blue);

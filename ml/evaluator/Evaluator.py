@@ -1,8 +1,8 @@
-from database import DataBase
-from pre_processor import PreProcessor
-from golden_Vectorizer import GoldenVectorizer
-from vectorizer import Vectorizer
-from comperator import Comperator
+from .database import DataBase
+from .pre_processor import PreProcessor
+from .golden_Vectorizer import GoldenVectorizer
+from .vectorizer import Vectorizer
+from .comperator import Comperator
 
 class GoldenMatrix:
   def __init__(self):
@@ -25,7 +25,8 @@ class Evaluator:
     for param in self.db.getParemList():
       pre_proc = PreProcessor(self.sem_desc_text).main() # preprocessed
       sem_desc_mat, golden_mat = Vectorizer(pre_proc, param).main() # vectorised
-      scores[param] = Comperator().main(sem_desc_mat, golden_mat) # score    
+
+      scores[param] = Comperator().main(sem_desc_mat, golden_mat) # score
     return scores
   
   def calcWeight(self):

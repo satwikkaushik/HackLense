@@ -3,3 +3,5 @@
 **/.vscode
 .gitignore
 test_script.py
+**/venv
+userUploads/

@@ -1,5 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
-from database import DataBase
+from .database import DataBase
 
 class GoldenVectorizer:
   def __init__(self, parameter_name):

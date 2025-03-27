@@ -126,6 +126,8 @@ const SignUpPage = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="signup-page-container">
       <div className="signup-card-container">
         <div className="signup-header">
@@ -200,6 +202,18 @@ const SignUpPage = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
+                required
+              />
+              {errors.name && <p className="error">{errors.name}</p>}
+            </div>
+
+            <div className="form-input-group">
+              <label htmlFor="department">Department</label>
+              <input
+                type="text"
+                id="department"
+                name="name"
+                // value="department"
                 required
               />
               {errors.name && <p className="error">{errors.name}</p>}
@@ -321,6 +335,7 @@ const SignUpPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

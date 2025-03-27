@@ -1,0 +1,42 @@
+Semantic Media Processing Tool
+
+Overview
+This Python script processes video, audio, image, and text files to extract semantic information. It performs:
+Speech-to-Text: Converts speech from audio and video files into text using Google Speech Recognition.
+Optical Character Recognition (OCR): Extracts text from images using Tesseract OCR.
+Text Processing: Directly saves textual input into a JSON output.
+
+The extracted information is stored in recognized.json for easy integration with a Node.js backend.
+
+Requirements
+1. Python Version
+Ensure you have Python 3.7+ installed. You can check your version using:
+python --version
+
+2. Dependencies
+Install the required dependencies using:
+
+Required Python Packages:
+speechrecognition
+moviepy
+pytesseract
+opencv-python
+
+You can also install them manually:
+pip install speechrecognition moviepy pytesseract opencv-python
+
+3. Tesseract OCR
+Download and install Tesseract OCR. Ensure the path is correctly set in the script:
+pytesseract.pytesseract.tesseract_cmd = "C:\\Users\\Udi Gupta\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe"
+
+Modify it according to your system if necessary.
+
+Usage
+Command-line Execution
+Run the script by passing a file or text as an argument:
+
+python process_media.py <file_path>  # For video, audio, or image files
+python process_media.py "Sample text input"  # For direct text processing
+
+Output Format
+The extracted data is saved in recognized.json in the following format as needed by our NLP model.

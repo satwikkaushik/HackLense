@@ -3,34 +3,38 @@ import mongoose, { Schema } from "mongoose";
 const FileSchema = new Schema({
     fileName: {
         type: String,
-        required: true,
+        required: [true, "File name is required."],
         trim: true,
-        minLength: 3,
-        maxlength: 200
+        minlength: [3, "File name must be at least 3 characters long."],
+        maxlength: [200, "File name must not exceed 200 characters."],
     },
     fileType: {
         type: String,
-        required: true,
-        enum: ["audio", "video", "text", "code"],
-        default: "text"
+        required: [true, "File type is required."],
+        enum: {
+            values: ["audio", "video", "text", "code"],
+            message: "File type must be one of: audio, video, text, or code."
+        },
+        default: "text",
     },
     fileSize: {
         type: Number,
-        required: true
+        required: [true, "File size is required."],
+        min: [1, "File size must be greater than 0."]
     },
     fileURL: {
         type: String,
-        required: true,
-        trim: true
+        required: [true, "File URL is required."],
+        trim: true,
     },
     uploadedBy: {
         type: Schema.Types.ObjectId,
         ref: "users",
-        required: true
+        required: [true, "Uploader reference is required."]
     },
     uploadedAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     }
 });
 

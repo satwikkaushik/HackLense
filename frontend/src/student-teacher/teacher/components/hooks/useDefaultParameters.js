@@ -1,28 +1,15 @@
 import { useEffect, useState } from "react";
+
 const dParameters = [
-    {
-      id: "1",
-      name: 'Relevance',
-    },{
-      id: "2",
-      name: 'Feasibility',
-    },{
-      id: "3",
-      name: 'Innovation',
-    },{
-      id: "4",
-      name: 'Presentation',
-    },{
-      id: "5",
-      name: 'Impact',
-    },{
-      id: "6",
-      name: 'Completeness',
-    },{
-      id: "7",
-      name: 'Technical Depth',
-    },
+    { id: "1", name: "Relevance" },
+    { id: "2", name: "Feasibility" },
+    { id: "3", name: "Innovation" },
+    { id: "4", name: "Presentation" },
+    { id: "5", name: "Impact" },
+    { id: "6", name: "Completeness" },
+    { id: "7", name: "Technical Depth" },
 ];
+
 
 export const usedefaultParameter = () => {
   const [defaultParameters, setDefaultParameters] = useState(dParameters);
@@ -45,4 +32,3 @@ export const usedefaultParameter = () => {
     loading
   };
 };
- 

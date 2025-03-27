@@ -1,0 +1,412 @@
+.top-achievers-container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #1a2a42;
+    color: #f5f7fa;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+      "Helvetica Neue", sans-serif;
+    padding: 2rem;
+  }
+  
+  /* Header Styles */
+  .top-achievers-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+  
+  .header-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f5f7fa;
+  }
+  
+  .trophy-icon {
+    color: #fbbc05;
+    margin-right: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .motivational-quote {
+    font-style: italic;
+    font-size: 1.25rem;
+    margin: 1rem auto;
+    max-width: 800px;
+    color: #a0b4d0;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+    color: #748cab;
+    margin-top: 0.5rem;
+  }
+  
+  /* Problems List */
+  .problems-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  /* Problem Card */
+  .problem-card {
+    background-color: #243b5d;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .problem-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .problem-header {
+    padding: 1.25rem;
+    background-color: var(--card-color, #4285f4);
+    color: white;
+  }
+  
+  .problem-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .problem-details {
+    padding: 1.5rem;
+  }
+  
+  .description {
+    margin: 0 0 1.25rem;
+    color: #e0e6f0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .problem-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .subject {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+  
+  .meta-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-right: 0.35rem;
+  }
+  
+  /* Achievers Section */
+  .achievers-section {
+    background-color: #1a2a42;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+  }
+  
+  .achievers-section h4 {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #f5f7fa;
+    border-bottom: 1px solid #3a4a62;
+    padding-bottom: 0.5rem;
+  }
+  
+  .achiever-card {
+    display: flex;
+    align-items: center;
+    background-color: #243b5d;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: background-color 0.2s;
+  }
+  
+  .achiever-card:hover {
+    background-color: #2a4266;
+  }
+  
+  .achiever-rank {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    min-width: 2rem;
+    text-align: center;
+  }
+  
+  .achiever-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .achiever-name-score {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .achiever-name-score h5 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f5f7fa;
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-right: 0.35rem;
+    color: #748cab;
+  }
+  
+  .score {
+    display: flex;
+    align-items: baseline;
+    margin-top: 0.25rem;
+  }
+  
+  .score-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #f5f7fa;
+  }
+  
+  .score-max {
+    font-size: 0.8rem;
+    color: #748cab;
+    margin-left: 0.15rem;
+  }
+  
+  .grade {
+    margin-left: 0.75rem;
+    font-weight: 700;
+    color: #34a853;
+  }
+  
+  .submission-type {
+    font-size: 0.8rem;
+    color: #a0b4d0;
+  }
+  
+  .file-type {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .achiever-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 1rem;
+  }
+  
+  .download-button,
+  .view-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    color: #a0b4d0;
+  }
+  
+  .download-button {
+    background-color: rgba(251, 188, 5, 0.1);
+  }
+  
+  .download-button:hover {
+    background-color: rgba(251, 188, 5, 0.2);
+    color: #fbbc05;
+  }
+  
+  .view-button {
+    background-color: rgba(66, 133, 244, 0.1);
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .view-button:hover {
+    background-color: rgba(66, 133, 244, 0.2);
+    color: #4285f4;
+  }
+  
+  .button-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.25rem;
+  }
+  
+  /* Loading and Error States */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(13, 19, 33, 0.9); /* Slightly transparent dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .loading-spinner {
+    width: 80px;
+    height: 80px;
+    border: 4px solid transparent;
+    border-top: 4px solid var(--primary-color);
+    border-right: 4px solid var(--secondary-color);
+    border-bottom: 4px solid var(--primary-color);
+    border-left: 4px solid var(--secondary-color);
+    border-radius: 50%;
+    animation: multiColorSpinner 1.5s linear infinite;
+    position: relative;
+  }
+  
+  .loading-spinner::before,
+  .loading-spinner::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 4px solid transparent;
+    border-top: 4px solid rgba(116, 140, 171, 0.5);
+    border-right: 4px solid rgba(62, 92, 118, 0.5);
+    border-bottom: 4px solid rgba(116, 140, 171, 0.5);
+    border-left: 4px solid rgba(62, 92, 118, 0.5);
+    border-radius: 50%;
+    animation: multiColorSpinner 2s linear infinite reverse;
+  }
+  
+  .loading-text {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: var(--light-color);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  @keyframes multiColorSpinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .loading-spinner,
+    .loading-spinner::before,
+    .loading-spinner::after {
+        animation: none;
+    }
+  }
+  
+  .error-message h2 {
+    color: #ea4335;
+    margin-bottom: 0.5rem;
+  }
+  
+  .error-message button {
+    margin-top: 1rem;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .error-message button:hover {
+    background-color: #3367d6;
+  }
+  
+  /* Animation */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(var(--card-index, 0) * 0.1s);
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .top-achievers-container {
+      padding: 1rem;
+    }
+  
+    .header-content h1 {
+      font-size: 1.75rem;
+    }
+  
+    .motivational-quote {
+      font-size: 1rem;
+    }
+  
+    .achiever-info {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .submission-type {
+      margin-top: 0.5rem;
+    }
+  
+    .achiever-actions {
+      margin-left: 0;
+      margin-top: 0.75rem;
+    }
+  
+    .achiever-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .achiever-rank {
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  

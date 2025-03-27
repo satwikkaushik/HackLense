@@ -42,3 +42,31 @@
 </ul>
 
 <h2>Thank you for using the Evaluator API. 🚀</h2>
+
+<h2>Dependencies/Python Libraries to install</h2>
+<ul>
+<li>nltk</li>
+<li>scikit-learn</li>
+<li>scipy</li>
+<li>numpy</li>
+</ul>
+
+---
+
+## To start with venv
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+## To start the flask server
+
+- go to `\ml` directory
+- run the following command:
+
+```bash
+ python -m flask_api.main
+```
+
+---

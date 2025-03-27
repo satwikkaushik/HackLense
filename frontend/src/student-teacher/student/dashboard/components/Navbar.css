@@ -25,6 +25,20 @@
   font-weight: 700;
   color: var(--color-cream);
 }
+.logout-btn {
+  height: fit-content;
+  width: fit-content;
+}
+.logout-btn ion-icon {
+  font-size: 1.5rem; /* or use 1.5rem */
+  color: white;
+  transition: transform 0.2s ease-in-out;
+}
+
+.logout-btn:hover ion-icon {
+  transform: scale(1.1);
+  color: #ccc;
+}
 
 .nav-links {
   display: flex;

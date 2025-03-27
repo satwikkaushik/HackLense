@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import './ContactPage.css';
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import Navbar from "../components/Navbar";
 
 const ContactPage = () => {
   const location = useLocation();
@@ -48,6 +49,8 @@ const ContactPage = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="contact-page-container">
       {/* Hero Section */}
       <section className="hero-section">
@@ -149,6 +152,7 @@ const ContactPage = () => {
         ></iframe>
       </div>
     </div>
+    </>
   );
 };
 

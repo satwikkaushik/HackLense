@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./LoginPage.css";
+import Navbar from "../components/Navbar";
 
 const BACKEND_URL = "http://localhost:3000";
 
@@ -65,6 +66,7 @@ const LoginPage = () => {
     // Send data to API
     fetch(`${BACKEND_URL}/account/login`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -73,11 +75,12 @@ const LoginPage = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.user !== null || data.user !== undefined) {
+          console.log(data.user.name)
           // Redirect to dashboard or appropriate page
           if (data.user.role === "user") {
             navigate("/student-dashboard");
           } else if (data.user.role === "teacher") {
-            navigate("/contact");
+            navigate("/teacher-dashboard");
           } else {
             setErrorMessage("Invalid role. Please try again.");
           }
@@ -92,132 +95,135 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-page-container">
-      <div className="login-card-container">
-        <div className="login-header">
-          <h1>Welcome Back</h1>
-        </div>
-
-        <div className="tab-selection">
-          <div
-            className={`tab-item ${
-              activeTab === "student" ? "active-tab" : ""
-            }`}
-            onClick={() => switchTab("student")}
-          >
-            Student
+    <>
+      <Navbar />
+      <div className="login-page-container">
+        <div className="login-card-container">
+          <div className="login-header">
+            <h1>Welcome Back</h1>
           </div>
-          <div
-            className={`tab-item ${
-              activeTab === "teacher" ? "active-tab" : ""
-            }`}
-            onClick={() => switchTab("teacher")}
-          >
-            Teacher
+
+          <div className="tab-selection">
+            <div
+              className={`tab-item ${
+                activeTab === "student" ? "active-tab" : ""
+              }`}
+              onClick={() => switchTab("student")}
+            >
+              Student
+            </div>
+            <div
+              className={`tab-item ${
+                activeTab === "teacher" ? "active-tab" : ""
+              }`}
+              onClick={() => switchTab("teacher")}
+            >
+              Teacher
+            </div>
           </div>
-        </div>
 
-        {errorMessage && <div className="error-message">{errorMessage}</div>}
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-        {activeTab === "student" && (
-          <form className="login-form-student" onSubmit={handleSubmit}>
-            <div className="form-input-group">
-              <label htmlFor="student-email">Email or Student ID</label>
-              <input
-                type="text"
-                id="student-email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
+          {activeTab === "student" && (
+            <form className="login-form-student" onSubmit={handleSubmit}>
+              <div className="form-input-group">
+                <label htmlFor="student-email">Email or Student ID</label>
+                <input
+                  type="text"
+                  id="student-email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-            <div className="form-input-group">
-              <label htmlFor="student-password">Password</label>
-              <input
-                type="password"
-                id="student-password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
+              <div className="form-input-group">
+                <label htmlFor="student-password">Password</label>
+                <input
+                  type="password"
+                  id="student-password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-            <div className="forgot-password-link">
-              <a href="#">Forgot password?</a>
-            </div>
+              <div className="forgot-password-link">
+                <a href="#">Forgot password?</a>
+              </div>
 
-            <div className="remember-me-checkbox">
-              <input
-                type="checkbox"
-                id="student-remember"
-                name="remember"
-                checked={formData.remember}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="student-remember">Remember me</label>
-            </div>
+              <div className="remember-me-checkbox">
+                <input
+                  type="checkbox"
+                  id="student-remember"
+                  name="remember"
+                  checked={formData.remember}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="student-remember">Remember me</label>
+              </div>
 
-            <button type="submit" className="login-button">
-              Log In
-            </button>
-          </form>
-        )}
+              <button type="submit" className="login-button">
+                Log In
+              </button>
+            </form>
+          )}
 
-        {activeTab === "teacher" && (
-          <form className="login-form-teacher" onSubmit={handleSubmit}>
-            <div className="form-input-group">
-              <label htmlFor="teacher-email">Email Address</label>
-              <input
-                type="email"
-                id="teacher-email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
+          {activeTab === "teacher" && (
+            <form className="login-form-teacher" onSubmit={handleSubmit}>
+              <div className="form-input-group">
+                <label htmlFor="teacher-email">Email Address</label>
+                <input
+                  type="email"
+                  id="teacher-email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-            <div className="form-input-group">
-              <label htmlFor="teacher-password">Password</label>
-              <input
-                type="password"
-                id="teacher-password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
+              <div className="form-input-group">
+                <label htmlFor="teacher-password">Password</label>
+                <input
+                  type="password"
+                  id="teacher-password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-            <div className="forgot-password-link">
-              <a href="#">Forgot password?</a>
-            </div>
+              <div className="forgot-password-link">
+                <a href="#">Forgot password?</a>
+              </div>
 
-            <div className="remember-me-checkbox">
-              <input
-                type="checkbox"
-                id="teacher-remember"
-                name="remember"
-                checked={formData.remember}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="teacher-remember">Remember me</label>
-            </div>
+              <div className="remember-me-checkbox">
+                <input
+                  type="checkbox"
+                  id="teacher-remember"
+                  name="remember"
+                  checked={formData.remember}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="teacher-remember">Remember me</label>
+              </div>
 
-            <button type="submit" className="login-button">
-              Log In
-            </button>
-          </form>
-        )}
+              <button type="submit" className="login-button">
+                Log In
+              </button>
+            </form>
+          )}
 
-        <div className="login-footer">
-          Don't have an account? <Link to="/signup-page">Sign up here</Link>
+          <div className="login-footer">
+            Don't have an account? <Link to="/signup-page">Sign up here</Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

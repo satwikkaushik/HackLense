@@ -1,0 +1,198 @@
+.navbar {
+    background-color: var(--color-dark-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .logo-icon {
+    font-size: 1.75rem;
+  }
+  
+  .logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-cream);
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-links a {
+    color: var(--color-light-blue);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: var(--transition);
+  }
+  
+  .nav-links a:hover {
+    color: var(--color-cream);
+  }
+  
+  .nav-links a.active {
+    color: var(--color-cream);
+  }
+  
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-light-blue);
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: var(--transition);
+  }
+  
+  .nav-links a:not(.active)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-light-blue);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--transition);
+  }
+  
+  .nav-links a:hover::after {
+    transform: scaleX(1);
+  }
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .notification-bell {
+    position: relative;
+  }
+  
+  .notification-bell button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: var(--color-light-blue);
+    transition: var(--transition);
+    padding: 0.25rem;
+    border-radius: 50%;
+  }
+  
+  .notification-bell button:hover {
+    color: var(--color-cream);
+    background-color: rgba(116, 140, 171, 0.1);
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--color-error);
+    color: var(--color-white);
+    font-size: 0.6rem;
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .notification-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    width: 300px;
+    background-color: var(--color-navy);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    padding: 1rem;
+    z-index: 101;
+    animation: fadeIn 0.2s ease-in-out;
+  }
+  
+  .notification-dropdown h3 {
+    margin-bottom: 0.75rem;
+    color: var(--color-cream);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .notification-dropdown ul {
+    list-style: none;
+  }
+  
+  .notification-item {
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 0.5rem;
+    background-color: var(--color-blue);
+  }
+  
+  .notification-item.info {
+    border-left: 3px solid var(--color-info);
+  }
+  
+  .notification-item.success {
+    border-left: 3px solid var(--color-success);
+  }
+  
+  .notification-item.warning {
+    border-left: 3px solid var(--color-warning);
+  }
+  
+  .notification-item.error {
+    border-left: 3px solid var(--color-error);
+  }
+  
+  .no-notifications {
+    color: var(--color-light-blue);
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+  }
+  
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--color-light-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--color-dark-blue);
+  }
+  
+  .username {
+    font-weight: 500;
+    color: var(--color-cream);
+  }

@@ -1,4 +1,4 @@
-import { UserInTransit, CreateUser } from "@/types/user";
+import { UserInTransit } from "@/types/user";
 
 export function generateUserInTransit(details: any): UserInTransit {
   const user: UserInTransit = {

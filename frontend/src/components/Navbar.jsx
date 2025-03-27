@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-logo">
-        <Link to="/">🏆 AssesRank</Link>
+        <Link to="/">🏆VisionGrade</Link>
       </div>
 
       <div className="navbar-menu">
@@ -35,6 +35,9 @@ const Navbar = () => {
         </Link>
         <Link to="/contact#find-us" className="navbar-item">
           Find Us
+        </Link>
+        <Link to="/resources" className="navbar-item">
+          Top-Achievers
         </Link>
       </div>
 

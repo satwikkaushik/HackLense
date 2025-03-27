@@ -1,4 +1,4 @@
-from database import DataBase
+from .database import DataBase
 
 class Vectorizer:
   def __init__(self, words, parameter):

@@ -7,14 +7,6 @@
     --cream: #f5f2ea;
   }
   
-  /* Base styles */
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--deep-dark);
-    color: var(--cream);
-  }
-  
   /* Navbar container with gradient and texture */
   .navbar {
     display: flex;

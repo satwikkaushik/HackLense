@@ -1,4 +1,8 @@
-import { accountLogin, accountLogout, accountSignup } from "@/controllers/account";
+import {
+  accountLogin,
+  accountLogout,
+  accountSignup,
+} from "@/controllers/account";
 import { Router } from "express";
 
 const router = Router();

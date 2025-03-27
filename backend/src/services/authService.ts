@@ -1,24 +1,12 @@
 import jwt from "jsonwebtoken";
 import { UserInTransit } from "@/types/user";
 
-export async function generateToken(user: UserInTransit): Promise<string> {
-  try {
-    const SECRET = process.env.JWT_SECRET as string;
-    const token = jwt.sign(user, SECRET);
+const SECRET = process.env.JWT_SECRET as string;
 
-    return Promise.resolve(token);
-  } catch (err) {
-    return Promise.reject(err);
-  }
+export function generateToken(user: UserInTransit): string {
+  return jwt.sign(user, SECRET);
 }
 
-export async function verifyToken(token: string) {
-  try {
-    const SECRET = process.env.JWT_SECRET as string;
-    const payload = jwt.verify(token, SECRET);
-
-    return Promise.resolve(payload);
-  } catch (err) {
-    return Promise.reject(err);
-  }
+export function verifyToken(token: string) {
+  return jwt.verify(token, SECRET);
 }

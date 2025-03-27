@@ -10,7 +10,6 @@ function StudentDashboard() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationContent, setNotificationContent] = useState({});
   const [assignments, setAssignments] = useState([]);
-
   const addNotification = (notification) => {
     setNotifications(prev => [...prev, notification]);
     setNotificationContent(notification);
@@ -28,7 +27,7 @@ function StudentDashboard() {
 
   return (
     <div className="app">
-      {/* <Navbar notifications={notifications} /> */}
+      <Navbar notifications={notifications} />
       {/* The SideCalendar will be fixed (using its own CSS) */}
       
       <div className="main-content">

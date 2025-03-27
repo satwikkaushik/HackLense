@@ -8,30 +8,60 @@
   --light-blue: #748CAB;
   --cream: #F0EBD8;
 }
+input::placeholder,
+textarea::placeholder {
+  color: #e7dddd;
+  font-size: 16px;
+  opacity: 0.8; /* optional */
+}
+/* Add these styles to your existing CSS file */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+.subject-select {
+  padding: 16px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--blue);
+  background-color: rgba(62, 92, 118, 0.2);
+  color: var(--cream);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  appearance: none; /* Remove default arrow */
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23F0EBD8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
 }
 
-body {
+.subject-select:focus {
+  outline: none;
+  border-color: var(--light-blue);
+  box-shadow: 0 0 0 3px rgba(116, 140, 171, 0.3);
+}
+
+.subject-select option {
   background-color: var(--navy-blue);
   color: var(--cream);
-  min-height: 100vh;
+  padding: 10px;
+}
+
+/* Add this to your existing media queries for responsive design */
+@media (max-width: 768px) {
+  .subject-select {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .subject-select {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}
+/* Full screen block with decent margin */
+.app-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-}
-
-/* Full screen block with decent margin */
-.app-container {
-  width: 100%;
-  max-width: 1000px;
-  margin: 20px;
-  padding: 30px;
 }
 
 .card {
@@ -40,7 +70,10 @@ body {
   padding: 40px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   overflow: hidden;
+  padding: 20px;
   width: 100%;
+  max-width: 1000px;
+  margin: 20px;
 }
 
 .title {
@@ -64,6 +97,7 @@ body {
   flex-direction: row;
   gap: 20px;
   width: 100%;
+  margin-top: 20px;
 }
 
 .content-left {
@@ -138,6 +172,7 @@ input:focus, textarea:focus {
   transition: all 0.3s ease;
   font-size: 16px;
   height: fit-content;
+  margin-top: 10px;
 }
 
 .add-btn:hover {
@@ -267,8 +302,8 @@ input:focus, textarea:focus {
   font-size: 16px;
 }
 
-.submit-btn {
-  background-color: var(--light-blue);
+.submit-btn-2 {
+  background-color: greenyellow;
   color: var(--dark-blue);
   border: none;
   border-radius: 10px;
@@ -285,23 +320,23 @@ input:focus, textarea:focus {
   margin-top: 15px;
 }
 
-.submit-btn:hover {
+.submit-btn-2:hover {
   background-color: var(--cream);
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(240, 235, 216, 0.3);
 }
 
-.submit-btn:disabled {
+.submit-btn-2:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
 
-.submit-btn.submitting {
+.submit-btn-2.submitting {
   background-color: var(--blue);
   color: var(--cream);
 }
 
-.submit-btn.success {
+.submit-btn-2.success {
   background-color: #4CAF50;
   color: white;
 }
@@ -374,4 +409,39 @@ input:focus, textarea:focus {
   .parameter-add {
     flex-direction: column;
   }
+}
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+  flex: 1;
+  background-color: red;
+  color: wheat;
+  border: none;
+  border-radius: 10px;
+  padding: 18px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 15px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.cancel-btn:hover {
+  background-color: #e5e7eb;
+  color: var(--dark-blue);
+}
+
+.submit-btn-2 {
+  flex: 1;
 }
